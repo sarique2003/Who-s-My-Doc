@@ -5,25 +5,26 @@ def create_tables(cursor):
     cursor.execute('DROP TABLE IF EXISTS Patient')
     cursor.execute('''CREATE TABLE IF NOT EXISTS Patient (
                         username TEXT,
-                        email TEXT PRIMARY KEY,
+                        email VARCHAR(255) PRIMARY KEY,
                         name TEXT,
                         age INTEGER,
                         sex TEXT,
                         location TEXT
-                    )''')
+                    );''')
 
     cursor.execute('DROP TABLE IF EXISTS Doctor')
     cursor.execute('''CREATE TABLE IF NOT EXISTS Doctor (
                         username TEXT,
-                        email TEXT,
+                        email VARCHAR(255),
                         name TEXT,
-                        regno TEXT PRIMARY KEY,
+                        regno VARCHAR(100) PRIMARY KEY,
                         qualification TEXT,
                         specialisation TEXT,
                         experience INTEGER,
                         fees REAL,
-                        timeslot TEXT
-                    )''')
+                        timeslot_start FLOAT,
+                        timeslot_end FLOAT
+                    );''')
 
     cursor.execute('DROP TABLE IF EXISTS Booking_details')
     cursor.execute('''CREATE TABLE IF NOT EXISTS Booking_details (

@@ -5,6 +5,8 @@ const cors=require('cors')
 port=3000
 
 
+const loginRouter=require('./Routes/Routes.login')
+const registerRouter=require('./Routes/Routes.register')
 app.use(express.json());
 // app.use(express.urlencoded({ extended: false }));
 app.use(cors())
@@ -31,6 +33,10 @@ conn.connect((err) => {
         console.log('App listening on port: ',port)
     })
 });
+
+app.use('/login',loginRouter(conn))
+app.use('/register',registerRouter(conn))
+
 
 // conn.end((err) => {
 //     if (err) {
