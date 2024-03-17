@@ -12,7 +12,7 @@ module.exports = (conn) => {
             let sql=`INSERT INTO doctor VALUES (?)`;
             conn.query(sql,[Object.values(values)],(error,result)=>{
                 if(error) res.status(400).send(error)
-                res.send(['Verified',result])
+                res.send({status:true,content:values})
             })
         }
 
@@ -23,7 +23,7 @@ module.exports = (conn) => {
             let sql=`INSERT INTO patient VALUES (?)`;
             conn.query(sql,[Object.values(values)],(error,result)=>{
                 if(error) res.status(400).send(error)
-                res.send(['Verified',result])
+                res.send({status:true,content:values})
             })
         }
 

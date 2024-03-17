@@ -9,8 +9,8 @@ module.exports = (conn) => {
         conn.query(sql, (error, result) => {
             if (error) res.status(400).send(error)
             else if(result.length==0)
-            res.send('Invalid email')
-            res.send(['Verified', result[0]])
+            res.send({status:false,content:"Invalid email"})
+            res.send({status:true, content:result[0]})
         })
         // if (type == 'doctor') {
             
