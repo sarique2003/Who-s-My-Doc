@@ -20,13 +20,29 @@ const LoginForm = ({setIsLoggedIn}) => {
             }
         ))
     }
-    function submitHandler(event){
-        event.preventDefault();
-        setIsLoggedIn=true;
-        toast.success("Successfully Logged in");
-        naviga("/dashboard")
 
-    }
+
+    function validatePassword(password) {
+    
+      return password.length >= 8;
+  }
+
+  
+    function submitHandler(event){
+      event.preventDefault();
+  
+      const isValidPassword = validatePassword(formData.password);
+  
+      if (!isValidPassword) {
+          toast.error("Invalid password. Please try again.");
+          return; 
+      }
+  
+      setIsLoggedIn(true);
+      toast.success("Successfully Logged in");
+      naviga("/dashboard");
+  }
+  
 
     const[showPassword, setshowPassword]=useState(false);
   return (

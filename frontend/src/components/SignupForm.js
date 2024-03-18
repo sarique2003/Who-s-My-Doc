@@ -27,9 +27,15 @@ const SignupForm = ({ setIsLoggedIn }) => {
 
   function submitHandler(event) {
     event.preventDefault();
-    setIsLoggedIn= true;
+   
+    if(formData.password !=formData.confirmpassword){
+      toast.error('invalid password');
+    }
+    else{
     toast.success('Successfully created your account');
     naviga('/dashboard');
+    }
+   
   }
 
   return (
