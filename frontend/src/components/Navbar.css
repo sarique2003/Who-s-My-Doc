@@ -1,0 +1,73 @@
+Navbar.css
+
+.navbar {
+    position: fixed;
+    top: 1px; /* Adjust the distance from the top of the screen */
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between; /* Logo to the left, links to the right */
+    align-items: center; /* Vertically center items */
+    padding: 1px 20px; /* Adjust padding as needed */
+  }
+  
+  .nav-links {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    margin: 0;
+    padding: 0;
+    text-align: center;
+  }
+  
+  .nav-links ul {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center; /* Center the navigation links horizontally */
+  }
+  
+  .nav-links li {
+    margin-left: 10px; /* Adjust spacing between links */
+  }
+  
+  .nav-links li:first-child {
+    margin-left: 0; /* Remove margin for the first link */
+  }
+  
+  .navbar img {
+    border-radius: 100%; /* Make the image circular */
+    width: 70px; /* Set width of the logo */
+    height: 70px;
+    display: flex;
+    margin-left: px; /* Set height of the logo */
+  }
+  
+  .nav-links a {
+    font-size: 14px; /* Adjust text size */
+    text-decoration: none; /* Remove underline */
+    color: black; /* Set color */
+  
+  }
+
+  .auth-buttons {
+    position: absolute;
+    top: -35px;
+    right: 10px; /* Adjust the distance from the right-hand side */
+    display: flex;
+    align-items: center;
+}
+
+.auth-buttons button {
+    margin-left: 0.75rem; /* Equivalent to ml-5 (assuming 1rem = 16px) */
+    margin-right: 0.5rem; /* Equivalent to mr-3 (assuming 1rem = 16px) */
+}
+
+
+
+/* If you want space between the buttons */
+.auth-buttons button + button {
+    margin-left: 1.5rem; /* Additional space between buttons, equivalent to gap-3 (assuming 1rem = 16px) */
+}
