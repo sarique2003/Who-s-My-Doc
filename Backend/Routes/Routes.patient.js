@@ -66,5 +66,24 @@ module.exports = (conn) => {
 
 
     })
+
+
+    Router.post('/previous-records', (req, res) => {
+        const { email } = req.body
+        let sql = `SELECT * FROM previous_records where patient_email='${email}';`
+        try{
+            conn.query(sql, (error, result) => {
+                if (error) res.status(400).send(error)
+                else if (result.length === 0)
+                    res.send("No previous records available")
+                else
+                res.send(result)
+            })
+        }
+        catch(error){
+            console.log(error)
+        }
+        
+    })
     return Router
 }

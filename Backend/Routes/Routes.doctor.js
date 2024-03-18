@@ -2,6 +2,19 @@ const express = require('express')
 const Router = express.Router()
 
 module.exports = (conn) => {
+    const date = new Date(); // Current date and time
+    const dateString = date.toISOString().split('T')[0]
+    // let sql=`SELECT * from booking_details WHERE date_of_appointment<'${dateString}';`
+    // conn.query(sql,(error,result)=>{
+    //     if(error) console.log(error)
+    //     let sql=`INSERT INTO previous_records VALUES (?)`
+    //     result.map((res)=>{
+    //         conn.query(sql,[Object.values(res)],(error,result)=>{
+    //             if(error) console.log(error)
+    //             console.log(result)
+    //         })
+    //     })
+    // })
     
     Router.post('/', (req, res) => {
         const date = new Date(); // Current date and time
@@ -19,7 +32,7 @@ module.exports = (conn) => {
             doc = result[0]
             let final_slots = []
             for (let i = 0; i < 7; i++)
-                final_slots.push(new Array(doc.timeslot_end - doc.timeslot_start).fill(0))
+                final_slots.push(new Array(doc.timeslot_end - doc.timeslot_start).fill({status:false,content:{}}))
             console.log(final_slots)
 
             //getting the booked slots
@@ -33,7 +46,7 @@ module.exports = (conn) => {
                     let val = res.date_of_appointment - date
                     
                     if (val >= 0)
-                        final_slots[val / 86400000][res.slot_booked] = 1
+                        final_slots[val / 86400000][res.slot_booked] = {status:true,content:{patient_email:res.patient_email,date:res.date_of_appointment,slot:res.slot_booked}}
 
                     return 1
                 })
@@ -42,6 +55,15 @@ module.exports = (conn) => {
         })
 
 
+    })
+
+    Router.post('/patient',(req,res)=>{
+        const {date,doctor_email,patient_email,slot}=req.body
+        let sql=`SELECT p.email,p.name,p.sex,p.age from patient p,booking_details bd WHERE bd.patient_email=p.email AND bd.patient_email='${patient_email}' AND bd.doctor_email='${doctor_email}' AND bd.date_of_appointment='${date}' AND bd.slot_booked=${slot};`
+        conn.query(sql,(error,result)=>{
+            if(error) res.status(400).send(error)
+            res.send(result)
+        })
     })
     return Router
 }
