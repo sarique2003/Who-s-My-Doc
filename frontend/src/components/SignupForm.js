@@ -1,139 +1,153 @@
 import React, { useState } from 'react';
-import {AiOutlineEye,AiOutlineEyeInvisible} from "react-icons/ai";
+import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { Link, useNavigate } from 'react-router-dom';
-import {toast} from "react-hot-toast";
+import { toast } from 'react-hot-toast';
 
-const SignupForm=({setIsLoggedIn})=>{
+const SignupForm = ({ setIsLoggedIn }) => {
+  const naviga = useNavigate();
+  const [formData, setFormData] = useState({
+    firstname: '',
+    age: '',
+    sex: '',
+    email: '',
+    username: '',
+    password: '',
+    confirmpassword: '',
+  });
 
-    const naviga = useNavigate();
-    const [formData,setFormData]=useState({
-        firstName:"",
-        LastName:"",
-        email:"",
-        username:"",
-        password:"",
-        confirmpassword:"",
-    })
-    function Changehandler(event){
-        setFormData((prevData)=>(
-            {
-                ...prevData,
-                [event.target.name]: event.target.value
-            }
-        ))
-    }
+  function Changehandler(event) {
+    setFormData((prevData) => ({
+      ...prevData,
+      [event.target.name]: event.target.value,
+    }));
+  }
 
-    const[showPassword, setshowPassword]=useState(false);
-    function submitHandler(event){
-        event.preventDefault();
-        setIsLoggedIn=true;
-        toast.success("Successfully created your account");
-        naviga("/dashboard")
+  const [showPassword, setShowPassword] = useState(false);
+  const [showConfirmPassword, setShowConfirmPassword] = useState(false);
 
-    }
-    return(
-       <div>
-         <form onSubmit={submitHandler}>
-               <div>
-            <button>
-                Patient
-            </button>
-            <button>
-                Doctor
-            </button>
-            </div>
-            <div>
-            <label>
-            <p>First Name <sup>*</sup> 
+  function submitHandler(event) {
+    event.preventDefault();
+    setIsLoggedIn= true;
+    toast.success('Successfully created your account');
+    naviga('/dashboard');
+  }
+
+  return (
+    <div>
+      <form onSubmit={submitHandler}>
+        <div>
+          <button>Patient</button>
+          <button>Doctor</button>
+        </div>
+        <div>
+          <label>
+            <p>
+               Name <sup>*</sup>{' '}
             </p>
-            <input 
-            name='firstname'
-            type="text"
-            value={formData.firstName}
+            <input
+              name="firstname"
+              type="text"
+              value={formData.firstname}
+              onChange={Changehandler}
+              placeholder="Enter the First Name"
+              required
+            />
+          </label>
+        </div>
+        <label>
+          <p>
+            Age <sup>*</sup>{' '}
+          </p>
+          <input
+            name="age"
+            type="number"
+            value={formData.age}
             onChange={Changehandler}
-            placeholder='Enter the First Name'
+            placeholder="Enter the age"
             required
           />
-          </label>
-          <label>
-            <p>Last Name <sup>*</sup> 
-            </p>
-            <input 
-            name='lastname'
-            type="text"
-            value={formData.LastName}
+        </label>
+        <label>
+          <p>
+            Sex <sup>*</sup>{' '}
+          </p>
+          <select
+            name="sex"
+            value={formData.sex}
             onChange={Changehandler}
-            placeholder='Enter the Last Name'
             required
-          />
-          </label>
-            </div>
-          
-          <label>
-            <p>Email <sup>*</sup> 
-            </p>
-            <input 
-            name='email'
+          >
+            <option value="">Select Sex</option>
+            <option value="Male">Male</option>
+            <option value="Female">Female</option>
+            <option value="Third Gender">Third Gender</option>
+          </select>
+        </label>
+        <label>
+          <p>
+            Email <sup>*</sup>{' '}
+          </p>
+          <input
+            name="email"
             type="email"
             value={formData.email}
             onChange={Changehandler}
-            placeholder='Enter the email'
+            placeholder="Enter the email"
             required
           />
-          </label>
-          <label>
-            <p> Username<sup>*</sup> 
-            </p>
-            <input 
-            name='fusername'
+        </label>
+        <label>
+          <p>
+            Username <sup>*</sup>{' '}
+          </p>
+          <input
+            name="username"
             type="text"
             value={formData.username}
             onChange={Changehandler}
-            placeholder='Enter the username'
+            placeholder="Enter the username"
             required
           />
-          </label>
-          <div>
+        </label>
+        <div>
           <label>
-            <p>Password <sup>*</sup> 
+            <p>
+              Password <sup>*</sup>{' '}
             </p>
-            <input 
-            name='password'
-            type={showPassword?("text"):("password")}
-            value={formData.password}
-            onChange={Changehandler}
-            placeholder='Enter the Password'
-            required
-          />
-
-            <span onClick={()=>setshowPassword((prev)=>!prev)}>
-            {showPassword ?(<AiOutlineEyeInvisible/>):(<AiOutlineEye/>)}
-          </span>
+            <input
+              name="password"
+              type={showPassword ? 'text' : 'password'}
+              value={formData.password}
+              onChange={Changehandler}
+              placeholder="Enter the Password"
+              required
+            />
+            <span onClick={() => setShowPassword((prev) => !prev)}>
+              {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+            </span>
           </label>
           <label>
-            <p>Confirm Password <sup>*</sup> 
+            <p>
+              Confirm Password <sup>*</sup>{' '}
             </p>
-            <input 
-            name='password'
-            type={showPassword?("text"):("password")}
-            value={formData.confirmpassword}
-            onChange={Changehandler}
-            placeholder='Enter the Confirm Password'
-            required
-          />
-
-            <span onClick={()=>setshowPassword((prev)=>!prev)}>
-            {showPassword ?(<AiOutlineEyeInvisible/>):(<AiOutlineEye/>)}
-          </span>
+            <input
+              name="confirmpassword"
+              type={showConfirmPassword ? 'text' : 'password'}
+              value={formData.confirmpassword}
+              onChange={Changehandler}
+              placeholder="Enter the Confirm Password"
+              required
+            />
+            <span onClick={() => setShowConfirmPassword((prev) => !prev)}>
+              {showConfirmPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+            </span>
           </label>
-          </div>
-         
-       <button>
-        Create Account
-       </button>
-        </form>
-       </div>
- 
-    )
-}
+        </div>
+
+        <button>Create Account</button>
+      </form>
+    </div>
+  );
+};
+
 export default SignupForm;
