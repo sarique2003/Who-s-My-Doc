@@ -27,7 +27,7 @@ const LoginForm = ({setIsLoggedIn}) => {
       return password.length >= 8;
   }
 
-  
+
     function submitHandler(event){
       event.preventDefault();
   
@@ -38,8 +38,13 @@ const LoginForm = ({setIsLoggedIn}) => {
           return; 
       }
   
-      setIsLoggedIn(true);
+      setIsLoggedIn= true;
       toast.success("Successfully Logged in");
+      const acc = {
+        ...formData
+      };
+      console.log("printing")
+      console.log(acc);
       naviga("/dashboard");
   }
   
