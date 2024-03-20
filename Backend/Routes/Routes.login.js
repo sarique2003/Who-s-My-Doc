@@ -1,6 +1,7 @@
 const express = require('express')
 const { comparePassword } = require('../helper/authHelper')
 const Router = express.Router()
+const jwt = require('jsonwebtoken');
 
 module.exports = (conn) => {
     // console.log('reached here')
@@ -23,7 +24,13 @@ module.exports = (conn) => {
                     }
                     else {
                         delete result[0].password;
-                        res.send({ status: true, content: { ...result[0], "type": type } })
+                        //token
+                        const token = await jwt.sign({ _id: email }, process.env.JWT_SECRET_KEY, { expiresIn: "7d" });
+                        res.send({
+                            status: true,
+                            user: { ...result[0], "type": type },
+                            token
+                        })
                     }
 
                 }

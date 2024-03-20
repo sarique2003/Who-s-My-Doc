@@ -17,7 +17,9 @@ module.exports = (conn) => {
 
                 let sql = `INSERT INTO doctor VALUES (?)`;
                 conn.query(sql, [Object.values(values)], (error, result) => {
-                    if (error) res.status(400).send(error)
+                    if (error) {
+                        res.send({ status: false, message: "Error in register" })
+                    }
                     else {
                         delete values.password
                         res.send({ status: true, content: values })
@@ -32,7 +34,7 @@ module.exports = (conn) => {
 
                 let sql = `INSERT INTO patient VALUES (?)`;
                 conn.query(sql, [Object.values(values)], (error, result) => {
-                    if (error) res.status(400).send(error)
+                    if (error) res.send({ status: false, message: "Error in register" })
                     else {
                         delete values.password
                         res.send({ status: true, content: values })

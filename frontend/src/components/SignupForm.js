@@ -27,7 +27,7 @@
 
 //   function submitHandler(event) {
 //     event.preventDefault();
-   
+
 //     if(formData.password !=formData.confirmpassword){
 //       toast.error('invalid password');
 //       return;
@@ -40,8 +40,8 @@
 //     console.log("printing")
 //     console.log(acc);
 //     naviga('/dashboard');
-    
-   
+
+
 //   }
 
 //   return (
@@ -169,12 +169,13 @@ import React, { useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import axios from 'axios';
 
 const SignupForm = ({ setIsLoggedIn }) => {
-  const naviga = useNavigate();
+  const navigate = useNavigate();
   const [formData, setFormData] = useState({
     name: '',
-    age: '',
+    age: 0,
     sex: '',
     email: '',
     username: '',
@@ -199,19 +200,106 @@ const SignupForm = ({ setIsLoggedIn }) => {
       ...prevData,
       [event.target.name]: event.target.value,
     }));
+    console.log(formData);
   }
 
-  function submitHandler(event) {
+  const submitHandler = async (event) => {
     event.preventDefault();
-   
+
     if (formData.password !== formData.confirmpassword) {
       toast.error('Passwords do not match');
       return;
     }
 
-    setIsLoggedIn(true);
-    toast.success('Successfully created your account');
-    naviga('/dashboard');
+    try {
+      const base_url = process.env.REACT_APP_API;
+
+      if (userType === 'patient') {
+        console.log("here");
+        const data = {
+          "username": formData.username,
+          "email": formData.email,
+          "password": formData.password,
+          "name": formData.name,
+          "age": parseInt(formData.age),
+          "sex": formData.sex,
+          "type": userType
+        };
+        console.log(data);
+        // const { username, email, password, name, age, sex } = formData;
+        // const type = userType;
+
+        const res = await axios.post(`http://localhost:3000/register`, data);
+        // const res = await axios.post(`http://localhost:3000/register`,
+        //   {
+        //     "username": "pat1",
+        //     "email": "pat1@email",
+        //     "password": "1234",
+        //     "name": "Patient Name1",
+        //     "age": 30,
+        //     "sex": "Male",
+        //     "type": "patient"
+        //   }
+
+        // );
+
+        // const res = await axios.post(`http://localhost:3000/register`, {
+        //   "username": formData.username,
+        //   "email": formData.email,
+        //   "password": formData.password,
+        //   "name": formData.name,
+        //   "age": parseInt(formData.age),
+        //   "sex": formData.sex,
+        //   "type": userType
+        // });
+        if (res.data.status) {
+          console.log("successfully logged in");
+          toast.success("Logged In successfully");
+          navigate('/login');
+        }
+        else {
+          console.log("Problem in register");
+          toast.error(res.data.message);
+        }
+
+      }
+      else {
+        const res = await axios.post(`http://localhost:3000/register`, {
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+          name: formData.name,
+          regno: formData.reg_no,
+          qualification: formData.qualifications,
+          specialisation: formData.specialisation,
+          experience: formData.experience,
+          fees: formData.fee_charges,
+          timeslot_start: formData.timeslot_start,
+          timeslot_end: formData.timeslot_end,
+          location: formData.location,
+          type: userType
+        });
+
+        if (res.data.status) {
+          toast.success(res.data.content);
+          navigate('/login');
+        }
+        else {
+          toast.error(res.data.message);
+        }
+      }
+
+
+
+    } catch (error) {
+      console.log(error);
+      toast.error("something went wrong")
+    }
+
+    // setIsLoggedIn(true);
+    // toast.success('Successfully created your account');
+    // navigate('/dashboard');
+    console.log("submit haldler here");
   }
 
   const doctorFormFields = (
@@ -240,39 +328,39 @@ const SignupForm = ({ setIsLoggedIn }) => {
       </label>
 
       <label>
-      <p>Email <sup>*</sup>{' '}</p>
-          <input
-            name="email"
-            type="email"
-            value={formData.email}
-            onChange={Changehandler}
-            placeholder="Enter Email"
-            required
-          />
-        </label>
+        <p>Email <sup>*</sup>{' '}</p>
+        <input
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={Changehandler}
+          placeholder="Enter Email"
+          required
+        />
+      </label>
 
-        <label>
-          <p>Username <sup>*</sup>{' '}</p>
-          <input
-            name="username"
-            type="text"
-            value={formData.username}
-            onChange={Changehandler}
-            placeholder="Enter Username"
-            required
-          />
-        </label>
-        <label>
-          <p>Qualification <sup>*</sup>{' '}</p>
-          <input
-            name="qualifications"
-            type="text"
-            value={formData.qualifications}
-            onChange={Changehandler}
-            placeholder="Enter qualification"
-            required
-          />
-        </label>
+      <label>
+        <p>Username <sup>*</sup>{' '}</p>
+        <input
+          name="username"
+          type="text"
+          value={formData.username}
+          onChange={Changehandler}
+          placeholder="Enter Username"
+          required
+        />
+      </label>
+      <label>
+        <p>Qualification <sup>*</sup>{' '}</p>
+        <input
+          name="qualifications"
+          type="text"
+          value={formData.qualifications}
+          onChange={Changehandler}
+          placeholder="Enter qualification"
+          required
+        />
+      </label>
 
       <label>
         <p>Specialisation<sup>*</sup>{' '}</p>
@@ -289,7 +377,7 @@ const SignupForm = ({ setIsLoggedIn }) => {
         <p>Fees<sup>*</sup>{' '}</p>
         <input
           name="fees_charge"
-          type= "number"
+          type="number"
           value={formData.fee_charges}
           onChange={Changehandler}
           placeholder="Enter fees"
@@ -297,7 +385,7 @@ const SignupForm = ({ setIsLoggedIn }) => {
         />
       </label>
 
-      
+
       <label>
         <p>Experience <sup>*</sup>{' '}</p>
         <input
@@ -325,57 +413,57 @@ const SignupForm = ({ setIsLoggedIn }) => {
         <p>timeslot_start<sup>*</sup>{' '}</p>
         <input
           name="simeslot_start"
-          type="text"
+          type="number"
           value={formData.specialisation}
           onChange={Changehandler}
           placeholder="Enter timeslot_start"
           required
         />
       </label>
-      
-      <label>
-        <p>timeslot_end<sup>*</sup>{' '}</p>
-        <input
-          name="timeslot_end"
-          type="text"
-          value={formData.timeslot_end}
-          onChange={Changehandler}
-          placeholder="Enter timeslot_end"
-          required
-        />
-      </label></div>
+
+        <label>
+          <p>timeslot_end<sup>*</sup>{' '}</p>
+          <input
+            name="timeslot_end"
+            type="number"
+            value={formData.timeslot_end}
+            onChange={Changehandler}
+            placeholder="Enter timeslot_end"
+            required
+          />
+        </label></div>
       <div>
-            <label>
-              <p>Password <sup>*</sup>{' '}</p>
-              <input
-                name="password"
-                type={showPassword ? 'text' : 'password'}
-                value={formData.password}
-                onChange={Changehandler}
-                placeholder="Enter Password"
-                required
-              />
-              <span onClick={() => setShowPassword((prev) => !prev)}>
-                {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-              </span>
-            </label>
-            <label>
-              <p>Confirm Password <sup>*</sup>{' '}</p>
-              <input
-                name="confirmpassword"
-                type={showConfirmPassword ? 'text' : 'password'}
-                value={formData.confirmpassword}
-                onChange={Changehandler}
-                placeholder="Confirm Password"
-                required
-              />
-              <span onClick={() => setShowConfirmPassword((prev) => !prev)}>
-                {showConfirmPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-              </span>
-            </label>
-          </div>
-     
-      
+        <label>
+          <p>Password <sup>*</sup>{' '}</p>
+          <input
+            name="password"
+            type={showPassword ? 'text' : 'password'}
+            value={formData.password}
+            onChange={Changehandler}
+            placeholder="Enter Password"
+            required
+          />
+          <span onClick={() => setShowPassword((prev) => !prev)}>
+            {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+          </span>
+        </label>
+        <label>
+          <p>Confirm Password <sup>*</sup>{' '}</p>
+          <input
+            name="confirmpassword"
+            type={showConfirmPassword ? 'text' : 'password'}
+            value={formData.confirmpassword}
+            onChange={Changehandler}
+            placeholder="Confirm Password"
+            required
+          />
+          <span onClick={() => setShowConfirmPassword((prev) => !prev)}>
+            {showConfirmPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
+          </span>
+        </label>
+      </div>
+
+
     </>
   );
 
@@ -385,7 +473,7 @@ const SignupForm = ({ setIsLoggedIn }) => {
         <button onClick={() => setUserType('patient')}>Patient</button>
         <button onClick={() => setUserType('doctor')}>Doctor</button>
       </div>
-     {userType === 'doctor' ? (
+      {userType === 'doctor' ? (
         <form onSubmit={submitHandler}>
           {doctorFormFields}
           <button>Create Account</button>
@@ -396,7 +484,7 @@ const SignupForm = ({ setIsLoggedIn }) => {
             <label>
               <p>Name <sup>*</sup>{' '}</p>
               <input
-                name="firstname"
+                name="name"
                 type="text"
                 value={formData.name}
                 onChange={Changehandler}
