@@ -1,174 +1,8 @@
-// import React, { useState } from 'react';
-// import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
-// import { Link, useNavigate } from 'react-router-dom';
-// import { toast } from 'react-hot-toast';
-
-// const SignupForm = ({ setIsLoggedIn }) => {
-//   const naviga = useNavigate();
-//   const [formData, setFormData] = useState({
-//     firstname: '',
-//     age: '',
-//     sex: '',
-//     email: '',
-//     username: '',
-//     password: '',
-//     confirmpassword: '',
-//   });
-
-//   function Changehandler(event) {
-//     setFormData((prevData) => ({
-//       ...prevData,
-//       [event.target.name]: event.target.value,
-//     }));
-//   }
-
-//   const [showPassword, setShowPassword] = useState(false);
-//   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
-
-//   function submitHandler(event) {
-//     event.preventDefault();
-   
-//     if(formData.password !=formData.confirmpassword){
-//       toast.error('invalid password');
-//       return;
-//     }
-//     setIsLoggedIn = true;
-//     toast.success('Successfully created your account');
-//     const acc = {
-//       ...formData
-//     };
-//     console.log("printing")
-//     console.log(acc);
-//     naviga('/dashboard');
-    
-   
-//   }
-
-//   return (
-//     <div>
-//       <form onSubmit={submitHandler}>
-//         <div>
-//           <button>Patient</button>
-//           <button>Doctor</button>
-//         </div>
-//         <div>
-//           <label>
-//             <p>
-//                Name <sup>*</sup>{' '}
-//             </p>
-//             <input
-//               name="firstname"
-//               type="text"
-//               value={formData.firstname}
-//               onChange={Changehandler}
-//               placeholder="Enter the First Name"
-//               required
-//             />
-//           </label>
-//         </div>
-//         <label>
-//           <p>
-//             Age <sup>*</sup>{' '}
-//           </p>
-//           <input
-//             name="age"
-//             type="number"
-//             value={formData.age}
-//             onChange={Changehandler}
-//             placeholder="Enter the age"
-//             required
-//           />
-//         </label>
-//         <label>
-//           <p>
-//             Sex <sup>*</sup>{' '}
-//           </p>
-//           <select
-//             name="sex"
-//             value={formData.sex}
-//             onChange={Changehandler}
-//             required
-//           >
-//             <option value="">Select Sex</option>
-//             <option value="Male">Male</option>
-//             <option value="Female">Female</option>
-//             <option value="Third Gender">Third Gender</option>
-//           </select>
-//         </label>
-//         <label>
-//           <p>
-//             Email <sup>*</sup>{' '}
-//           </p>
-//           <input
-//             name="email"
-//             type="email"
-//             value={formData.email}
-//             onChange={Changehandler}
-//             placeholder="Enter the email"
-//             required
-//           />
-//         </label>
-//         <label>
-//           <p>
-//             Username <sup>*</sup>{' '}
-//           </p>
-//           <input
-//             name="username"
-//             type="text"
-//             value={formData.username}
-//             onChange={Changehandler}
-//             placeholder="Enter the username"
-//             required
-//           />
-//         </label>
-//         <div>
-//           <label>
-//             <p>
-//               Password <sup>*</sup>{' '}
-//             </p>
-//             <input
-//               name="password"
-//               type={showPassword ? 'text' : 'password'}
-//               value={formData.password}
-//               onChange={Changehandler}
-//               placeholder="Enter the Password"
-//               required
-//             />
-//             <span onClick={() => setShowPassword((prev) => !prev)}>
-//               {showPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-//             </span>
-//           </label>
-//           <label>
-//             <p>
-//               Confirm Password <sup>*</sup>{' '}
-//             </p>
-//             <input
-//               name="confirmpassword"
-//               type={showConfirmPassword ? 'text' : 'password'}
-//               value={formData.confirmpassword}
-//               onChange={Changehandler}
-//               placeholder="Enter the Confirm Password"
-//               required
-//             />
-//             <span onClick={() => setShowConfirmPassword((prev) => !prev)}>
-//               {showConfirmPassword ? <AiOutlineEyeInvisible /> : <AiOutlineEye />}
-//             </span>
-//           </label>
-//         </div>
-
-//         <button>Create Account</button>
-//       </form>
-//     </div>
-//   );
-// };
-
-// export default SignupForm;
-
-
 import React, { useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'react-hot-toast';
+import './SignupForm.css';
 
 const SignupForm = ({ setIsLoggedIn }) => {
   const naviga = useNavigate();
@@ -209,7 +43,7 @@ const SignupForm = ({ setIsLoggedIn }) => {
       return;
     }
 
-    setIsLoggedIn(true);
+    setIsLoggedIn= true;
     toast.success('Successfully created your account');
     naviga('/dashboard');
   }
@@ -288,7 +122,7 @@ const SignupForm = ({ setIsLoggedIn }) => {
       <label>
         <p>Fees<sup>*</sup>{' '}</p>
         <input
-          name="fees_charge"
+          name="fee_charges"
           type= "number"
           value={formData.fee_charges}
           onChange={Changehandler}
@@ -324,9 +158,9 @@ const SignupForm = ({ setIsLoggedIn }) => {
       <div>  <label>
         <p>timeslot_start<sup>*</sup>{' '}</p>
         <input
-          name="simeslot_start"
+          name="timeslot_start"
           type="text"
-          value={formData.specialisation}
+          value={formData.timeslot_start}
           onChange={Changehandler}
           placeholder="Enter timeslot_start"
           required
@@ -380,23 +214,28 @@ const SignupForm = ({ setIsLoggedIn }) => {
   );
 
   return (
-    <div>
-      <div>
-        <button onClick={() => setUserType('patient')}>Patient</button>
-        <button onClick={() => setUserType('doctor')}>Doctor</button>
+    <div className="container ">
+    <div className="row justify-content-center">
+      <div className="col-md-6">
+        <div className="card mt-5">
+          <div className="card-body">
+            <div className="mb-3">
+
+        <button className ='patient-btn' onClick={() => setUserType('patient')}>Patient</button>
+        <button  className ='doctor-btn' onClick={() => setUserType('doctor')}>Doctor</button>
       </div>
      {userType === 'doctor' ? (
-        <form onSubmit={submitHandler}>
+        <form className='signupform' onSubmit={submitHandler}>
           {doctorFormFields}
-          <button>Create Account</button>
+          <button className=" btn-primary">Create Account</button>
         </form>
       ) : (
-        <form onSubmit={submitHandler}>
+        <form className='signupform' onSubmit={submitHandler}>
           <div>
             <label>
               <p>Name <sup>*</sup>{' '}</p>
               <input
-                name="firstname"
+                name="name"
                 type="text"
                 value={formData.name}
                 onChange={Changehandler}
@@ -482,9 +321,13 @@ const SignupForm = ({ setIsLoggedIn }) => {
               </span>
             </label>
           </div>
-          <button>Create Account</button>
+          <button className="btn-primary">Create Account</button>
         </form>
       )}
+    </div>
+    </div>
+      </div>
+      </div>
     </div>
   );
 };

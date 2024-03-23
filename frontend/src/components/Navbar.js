@@ -9,23 +9,26 @@ const Navbar = (props) => {
     let SetloggedIn = props.SetloggedIn;
   return (
     <div className='navbar'>
+    {/* // <div className='flex justify-evenly'> */}
       <Link to='/'>
         <img src={logo} alt="Logo"  loading='lazy' />
       </Link>
 
       <nav className='nav-links'>
-        <ul className="nav-menu">
+      {/* <nav> */}
+        <ul className="flex gap-3">
           <li><Link to="/">Home</Link></li>
           <li><Link to="/about">About</Link></li>
           <li><Link to="/services">Services</Link></li>
           <li><Link to="/contact">Contact</Link></li>
         </ul>
-      </nav>
+ 
 
       <div className="auth-buttons">
+
         { !isLoggedIn &&
             <Link to ="/login">
-                <button>
+                <button className='auth-button'>
                     Login
                 </button>
             </Link>           
@@ -33,14 +36,14 @@ const Navbar = (props) => {
 
          { !isLoggedIn &&
             <Link to ="/signup">
-                <button>
+                <button className='auth-button'>
                     Signup
                 </button>
             </Link>           
         }
           { isLoggedIn &&
             <Link to ="/">
-                <button onClick={()=>{
+                <button  className='auth-button' onClick={()=>{
                     SetloggedIn(false);
                     toast.success("Logged Out");
                 }}>
@@ -50,12 +53,13 @@ const Navbar = (props) => {
         }
           { isLoggedIn &&
             <Link to ="/dashboard">
-                <button>
+                <button className='auth-button'>
                     Dashboard
                 </button>
             </Link>           
         }
       </div>
+      </nav>
     </div>
 
   

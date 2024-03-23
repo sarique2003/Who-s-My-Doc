@@ -1,0 +1,118 @@
+.login-form-container {
+    display: flex;
+    position:fixed;
+    justify-content: center;
+ 
+    border-radius: 20px;
+    margin-bottom: 15px;
+   
+    width:50%;
+    height: 80vh;
+    background-color: #5d6c80; 
+    transform: translateX(50%);
+    box-shadow: 0 0 10px rgba(4, 153, 126, 0.342);
+  }
+.cas{
+    color: white;
+}
+  .login-form {
+    background-color: #3e5759; /* White background color */
+    padding: 20px;
+    border-radius: 10px;
+    transform: translateY(20%);
+    width: 300px;
+    height:fit-content /* Adjust width as needed */
+  }
+  
+  .login-form label {
+    display: block;
+    margin-bottom: 10px;
+  }
+  
+  .login-form input {
+    width: 100%;
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  .password-toggle {
+    position: relative;
+  }
+  
+  .password-toggle span {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    cursor: pointer;
+  }
+  
+  .login-form button {
+    width: 100%;
+    padding: 10px;
+    background-color: #1e9670; /* Greyish color */
+    border: none;
+    border-radius: 20px; /* Rounded corners */
+    cursor: pointer;
+    transition: background-color 0.3s; /* Smooth transition */
+    margin-top: 10px;
+  }
+
+  
+  .login-form button:hover {
+    background-color: #207649; /* Darker grey on hover */
+  }
+  
+
+
+  
+  .or-divider {
+    display: flex;
+    position: fixed;
+    align-items: center;
+    margin: 20px 0;
+    transform: translateX(1700%)translateY(2300%);
+  }
+  
+  .or-divider div {
+    flex: 1;
+    height: 1px;
+    background-color: #ccc;
+  }
+  
+  .or-divider p {
+    margin: 0 10px;
+    color: #ccc;
+    font-weight: bold;
+  }
+  
+  .google-signup-btn {
+    width: 20%;
+    padding: 10px;
+    background-color: #48566d;
+    color: #fff;
+    border: none;
+    position: fixed;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 10px;
+    transform: translateX(200%)translateY(1000%);
+  }
+  
+  .google-signup-btn:hover {
+    background-color: #3367d6;
+  }
+  
+  .template-image {
+    margin-left: 20px; /* Adjust spacing */
+  }
+  
+  .template-image img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+  }
+  

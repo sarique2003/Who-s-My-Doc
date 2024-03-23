@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import {AiOutlineEye,AiOutlineEyeInvisible} from "react-icons/ai";
 import { Link, useNavigate } from 'react-router-dom';
 import {toast} from "react-hot-toast";
+import './LoginForm.css'
 
 
 const LoginForm = ({setIsLoggedIn}) => {
@@ -51,11 +52,11 @@ const LoginForm = ({setIsLoggedIn}) => {
 
     const[showPassword, setshowPassword]=useState(false);
   return (
-    <div>
-      <form onSubmit={submitHandler} >
+    <div className="login-form-container">
+      <form className="login-form" onSubmit={submitHandler} >
         <div>
           <label>
-            <p>Email<sup>*</sup>
+            <p className='cas'>Email<sup>*</sup>
             </p>
             
           <input 
@@ -70,7 +71,7 @@ const LoginForm = ({setIsLoggedIn}) => {
         </div>
         <div>
           <label> 
-            <p>Username<sup>*</sup>
+            <p className='cas'>Username<sup>*</sup>
             </p>
           <input 
           name='username'
@@ -82,9 +83,9 @@ const LoginForm = ({setIsLoggedIn}) => {
           />
           </label>
         </div>
-        <div>
+        <div className="password-toggle">
           <label>
-            <p>Password<sup>*</sup>
+            <p className='cas'>Password<sup>*</sup>
             </p>
           <input 
              name = 'password'
@@ -98,14 +99,16 @@ const LoginForm = ({setIsLoggedIn}) => {
           </span>
 
           <Link to ="#">
-            <p> Forgot password</p>
+            <p className='linki'> Forgot password</p>
           </Link>
           </label>
         </div>
-        <button type="submit">Login</button>
+        <button className='cas' type="submit">Login</button>
       </form>
     </div>
   );
 }
 
 export default LoginForm;
+
+
