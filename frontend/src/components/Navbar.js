@@ -22,10 +22,6 @@ const Navbar = (props) => {
   return (
     <div className='navbar'>
     {/* // <div className='flex justify-evenly'> */}
-      <Link to='/'>
-        <img src={logo} alt="Logo" loading='lazy' />
-      </Link>
-
       <nav className='nav-links'>
       {/* <nav> */}
         <ul className="flex gap-3">

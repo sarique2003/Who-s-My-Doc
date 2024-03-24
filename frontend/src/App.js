@@ -17,11 +17,10 @@ function App() {
 
     <div className="w-screen h-screen flex flex-col">
     {/* // <div className="App"> */}
-
-<Navbar isLoggedIn ={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/> 
+   <Navbar isLoggedIn ={isLoggedIn} setIsLoggedIn={setIsLoggedIn}/> 
 
     <Routes>
-      <Route path ="/" element = {<Home/>}/>
+      <Route path ="/" element = {<Patientpages/>}/>
       <Route path ='/login' element = {<Login setIsLoggedIn={setIsLoggedIn}/>}/>
       <Route path ='/signup' element = {<Signup setIsLoggedIn={setIsLoggedIn}/>}/>
       <Route path ='/patientdashboard' element = {<Patientpages setIsLoggedIn={setIsLoggedIn}/>}/>

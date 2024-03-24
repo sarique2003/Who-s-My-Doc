@@ -5,9 +5,9 @@ const Home = () => {
   const [auth, setAuth] = useAuth();
 
   return (
-    <div>
+    <div className="mt-20">
       <pre>{JSON.stringify(auth.user, null)}</pre>
-      <h1>Welcome to the Home Page</h1>
+      <h1 style={{ marginTop: '40px',color: 'white'}} >Welcome to  Whos My Doc</h1>
       <p>This is the home page content.</p>
     </div>
   );
