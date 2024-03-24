@@ -41,7 +41,7 @@
   background-color: #225252; 
 }
 
-.auth-buttons {
+.buttons {
   display: flex;
   position: absolute;
   top: 50%;
@@ -49,7 +49,7 @@
   color: #1b4a2e;
   transform: translateX(450%) translateY(-70%);
 }
-.auth-button {
+.button {
   border: none;
   outline: none;
   background-color: #ccc;

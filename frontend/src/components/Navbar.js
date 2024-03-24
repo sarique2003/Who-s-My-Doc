@@ -36,11 +36,11 @@ const Navbar = (props) => {
         </ul>
  
 
-      <div className="auth-buttons">
+      <div className="buttons">
 
         { !isLoggedIn &&
             <Link to ="/login">
-                <button className='auth-button'>
+                <button className='button'>
                     Login
                 </button>
             </Link>           
@@ -48,14 +48,14 @@ const Navbar = (props) => {
 
          { !isLoggedIn &&
             <Link to ="/signup">
-                <button className='auth-button'>
+                <button className='button'>
                     Signup
                 </button>
             </Link>           
         }
           { isLoggedIn &&
             <Link to ="/">
-                <button  className='auth-button' onClick={()=>{
+                <button  className='button' onClick={()=>{
                     SetloggedIn(false);
                     toast.success("Logged Out");
                 }}>
@@ -65,7 +65,7 @@ const Navbar = (props) => {
         }
           { isLoggedIn &&
             <Link to ="/dashboard">
-                <button className='auth-button'>
+                <button className='button'>
                     Dashboard
                 </button>
             </Link>           
