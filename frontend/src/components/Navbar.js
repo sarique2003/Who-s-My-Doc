@@ -36,40 +36,24 @@ const Navbar = (props) => {
         </ul>
  
 
-      <div className="buttons">
-
-        { !isLoggedIn &&
-            <Link to ="/login">
-                <button className='button'>
-                    Login
-                </button>
-            </Link>           
-        }
-
-         { !isLoggedIn &&
-            <Link to ="/signup">
-                <button className='button'>
-                    Signup
-                </button>
-            </Link>           
-        }
-          { isLoggedIn &&
-            <Link to ="/">
-                <button  className='button' onClick={()=>{
-                    SetloggedIn(false);
-                    toast.success("Logged Out");
-                }}>
-                    LogOut
-                </button>
-            </Link>           
-        }
-          { isLoggedIn &&
-            <Link to ="/dashboard">
-                <button className='button'>
-                    Dashboard
-                </button>
-            </Link>           
-        }
+        <div className="buttons">
+          {!isLoggedIn ? (
+            <>
+              <Link to="/login">
+                <button className='button'>Login</button>
+              </Link>
+              <Link to="/signup">
+                <button className='button'>Signup</button>
+              </Link>
+            </>
+          ) : (
+            <>
+              <button className='button' onClick={handleLogout}>Logout</button>
+              <Link to="/patientdashboard">
+                <button className='button'>Dashboard</button>
+              </Link>
+            </>
+          )}
       </div>
       </nav>
     </div>

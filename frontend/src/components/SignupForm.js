@@ -47,7 +47,13 @@ const SignupForm = ({ setIsLoggedIn }) => {
 
     setIsLoggedIn= true;
     toast.success('Successfully created your account');
-    navigate('/dashboard');
+
+  
+    if (userType === 'doctor') {
+      navigate('/doctordashboard');
+    } else {
+      navigate('/patientdashboard');
+    }
   }
 
   const doctorFormFields = (
@@ -173,7 +179,7 @@ const SignupForm = ({ setIsLoggedIn }) => {
           <p>timeslot_end<sup>*</sup>{' '}</p>
           <input
             name="timeslot_end"
-            type="number"
+            type="text"
             value={formData.timeslot_end}
             onChange={Changehandler}
             placeholder="Enter timeslot_end"

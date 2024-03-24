@@ -1,12 +1,12 @@
 import React from 'react';
 
-const Dashboard = () => {
+const Patientpages = () => {
   return (
     <div>
-      <h1>Dashboard</h1>
+      <h2>Patientpages Dashboard</h2>
       <p>Welcome to your dashboard!</p>
     </div>
   );
 }
 
-export default Dashboard;
+export default Patientpages ;

@@ -51,15 +51,16 @@ const LoginForm = ({ setIsLoggedIn }) => {
         })
 
         localStorage.setItem('auth', JSON.stringify(res.data));
-
-        navigate('/');
+        setIsLoggedIn = true;
+     toast.success("Successfully Logged in");
+        navigate('/doctordashboard');
       }
       else {
         toast.error(res.data.message);
       }
 
     } catch (error) {
-
+      console.error("Error occurred during login:", error);
     }
 
     // const isValidPassword = validatePassword(formData.password);
