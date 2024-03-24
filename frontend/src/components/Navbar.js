@@ -37,7 +37,6 @@ const Navbar = (props) => {
  
 
       <div className="auth-buttons">
-<<<<<<< HEAD
 
         { !isLoggedIn &&
             <Link to ="/login">
@@ -70,36 +69,6 @@ const Navbar = (props) => {
                     Dashboard
                 </button>
             </Link>           
-=======
-        {!auth.user &&
-          <Link to="/login">
-            <button>
-              Login
-            </button>
-          </Link>
-        }
-
-        {!auth.user &&
-          <Link to="/signup">
-            <button>
-              Signup
-            </button>
-          </Link>
-        }
-        {auth.user &&
-          <Link to="/">
-            <button onClick={handleLogout}>
-              LogOut
-            </button>
-          </Link>
-        }
-        {auth.user &&
-          <Link to="/dashboard">
-            <button>
-              Dashboard
-            </button>
-          </Link>
->>>>>>> aac81f1db42a063d3cf9d6b99101f1f52f53f27d
         }
       </div>
       </nav>

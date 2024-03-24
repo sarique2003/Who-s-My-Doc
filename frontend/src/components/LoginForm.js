@@ -1,14 +1,10 @@
 import React, { useState } from 'react';
 import { AiOutlineEye, AiOutlineEyeInvisible } from "react-icons/ai";
 import { Link, useNavigate } from 'react-router-dom';
-<<<<<<< HEAD
 import {toast} from "react-hot-toast";
 import './LoginForm.css'
-=======
-import { toast } from "react-hot-toast";
-import axios from 'axios';
 import { useAuth } from '../context/auth';
->>>>>>> aac81f1db42a063d3cf9d6b99101f1f52f53f27d
+import axios from 'axios';
 
 
 const LoginForm = ({ setIsLoggedIn }) => {
@@ -103,7 +99,7 @@ const LoginForm = ({ setIsLoggedIn }) => {
             />
           </label>
         </div>
-        {/* <div>
+        <div>
           <label> 
             <p className='cas'>Username<sup>*</sup>
             </p>
@@ -116,13 +112,8 @@ const LoginForm = ({ setIsLoggedIn }) => {
             required
           />
           </label>
-<<<<<<< HEAD
         </div>
         <div className="password-toggle">
-=======
-        </div> */}
-        <div>
->>>>>>> aac81f1db42a063d3cf9d6b99101f1f52f53f27d
           <label>
             <p className='cas'>Password<sup>*</sup>
             </p>
@@ -133,42 +124,16 @@ const LoginForm = ({ setIsLoggedIn }) => {
               onChange={Changehandler}
               required
             />
-
-<<<<<<< HEAD
           <Link to ="#">
             <p className='linki'> Forgot password</p>
           </Link>
-=======
-            <span onClick={() => setshowPassword((prev) => !prev)}>
-              {showPassword ? (<AiOutlineEyeInvisible />) : (<AiOutlineEye />)}
-            </span>
-
-            <Link to="#">
-              <p> Forgot password</p>
-            </Link>
-          </label>
-        </div>
-
-        <div>
-          <label>
-            <p>Type <sup>*</sup>{' '}</p>
-            <select
-              name="type"
-              value={formData.type}
-              onChange={Changehandler}
-              required
-            >
-              <option value="patient">Patient</option>
-              <option value="doctor">Doctor</option>
-            </select>
->>>>>>> aac81f1db42a063d3cf9d6b99101f1f52f53f27d
           </label>
         </div>
         <button className='cas' type="submit">Login</button>
       </form>
     </div>
   );
-}
+  }
 
 export default LoginForm;
 
