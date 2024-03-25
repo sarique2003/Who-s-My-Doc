@@ -11,15 +11,15 @@ function App() {
   const [count, setCount] = useState(0)
 
   return (
-  
-      <BrowserRouter>
+
+    <BrowserRouter>
       <Routes>
-        <Route exact path='/login' element={<Login/>} />
-        <Route exact path='' element={<SignUp/>} />
+        <Route exact path='/login' element={<Login />} />
+        <Route exact path='' element={<SignUp />} />
 
       </Routes>
-      </BrowserRouter>
-    
+    </BrowserRouter>
+
   )
 }
 

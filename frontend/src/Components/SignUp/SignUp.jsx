@@ -1,16 +1,19 @@
 import React, { useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import './SignUp.css'
 import img from '../../assets/img-back.jpg'
+import axios from 'axios'
+import { toast } from 'react-hot-toast';
 
 export default function SignUp() {
     const [type, setType] = useState('doctor')
+    const navigate = useNavigate();
 
     const [patient, setPatient] = useState({
-        name: '',
-        email: '',
         username: '',
+        email: '',
         password: '',
+        name: '',
         age: 0,
         sex: '',
 
@@ -41,23 +44,56 @@ export default function SignUp() {
     }
 
 
-    const handleSubmit=(e)=>{
+    const handleSubmit = async (e) => {
         e.preventDefault()
-        if(type==='patient'){
-            if(patient.password.length<8){
-                alert('Password must of at least 8 character')
-                return
+        try {
+            let data = {}
+            if (type === 'patient') {
+                // if(patient.password.length<8){
+                //     alert('Password must of at least 8 character')
+                //     return
+                // }
+                data = {
+                    ...patient,
+                    type
+                };
+                console.log("Patient data ", data);
+
+
             }
-        }
-        else{
-            if(doctor.password.length<8){
-                alert('Password must of at least 8 character')
-                return
+            else {
+                // if(doctor.password.length<8){
+                //     alert('Password must of at least 8 character')
+                //     return
+                // }
+                // if(doctor.timeslot_start>=doctor.timeslot_end){
+                //     alert('Sarting time must be before ending time')
+                //     return
+                // }
+
+                data = {
+                    ...doctor,
+                    type
+                }
+
             }
-            if(doctor.timeslot_start>=doctor.timeslot_end){
-                alert('Sarting time must be before ending time')
-                return
+            console.log("Data before axios ", data);
+            const res = await axios.post(`http://localhost:3000/register`,
+                data
+            );
+
+            console.log("Response", res.data);
+            if (res.data.status) {
+                console.log("successfully Registerred");
+                toast.success("Registerred successfully");
+                navigate('/login');
             }
+            else {
+                console.log("Problem in register");
+                toast.error(res.data.message);
+            }
+        } catch (error) {
+
         }
     }
 
@@ -86,7 +122,7 @@ export default function SignUp() {
                     <div className="col-6 form-inp overflow-auto">
 
                         <h1 className="text-center mt-3">Register</h1>
-                        <form className='my-5 ps-2' >
+                        <form className='my-5 ps-2' onSubmit={handleSubmit}>
                             <div className="d-flex  input-div type-sel align-items-center justify-content-center fs-5">
                                 Select the type of User
                                 <select id="dropdown  " name="dropdown" value={type} onChange={handletype} className='mx-2 p-2 rounded' >
@@ -99,6 +135,11 @@ export default function SignUp() {
                             <div className=" input-div my-3 fs-5">
                                 <p className='d-block'>Enter your Email</p>
                                 <input type="email" className='p-2 b-0 rounded' required placeholder='Enter your email' name='email' onChange={handlechangeDoctor} value={doctor.email} />
+                            </div>
+                            <hr />
+                            <div className=" input-div my-3 fs-5">
+                                <p className='d-block'>Enter your Username</p>
+                                <input type="text" className='p-2 b-0 rounded' required placeholder='Enter your username' name='username' onChange={handlechangeDoctor} value={doctor.username} />
                             </div>
                             <hr />
                             <div className=" input-div my-3 fs-5">
@@ -182,7 +223,7 @@ export default function SignUp() {
                     <div className="col-6 form-inp overflow-auto ">
 
                         <h1 className="text-center mt-3 ">Register</h1>
-                        <form className='my-5 ps-2' >
+                        <form className='my-5 ps-2' onSubmit={handleSubmit}>
                             <div className="d-flex  input-div type-sel align-items-center justify-content-center fs-5">
                                 Select the type of User
                                 <select id="dropdown  " name="dropdown" value={type} onChange={handletype} className='mx-2' >
@@ -195,6 +236,11 @@ export default function SignUp() {
                             <div className=" input-div my-3 fs-5">
                                 <p className='d-block'>Enter your Email</p>
                                 <input type="email" className='p-2 b-0 rounded' required placeholder='Enter your email' name='email' onChange={handlechangePatient} value={patient.email} />
+                                <hr />
+                            </div>
+                            <div className=" input-div my-3 fs-5">
+                                <p className='d-block'>Enter your Username</p>
+                                <input type="text" className='p-2 b-0 rounded' required placeholder='Enter your username' name='username' onChange={handlechangePatient} value={patient.username} />
                                 <hr />
                             </div>
                             <div className=" input-div my-3 fs-5">
