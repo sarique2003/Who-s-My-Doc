@@ -1,0 +1,55 @@
+.container-main {
+    width: 100vw;
+    /* background-color: aqua; */
+    height: 100vh;
+    background: hsla(115, 86%, 41%, 0.8);
+
+    background: linear-gradient(90deg, hsla(115, 86%, 41%, 0.6) 0%, hsla(156, 71%, 96%, 1) 50%, hsla(29, 100%, 44%, 0.6) 100%);
+
+    background: -moz-linear-gradient(90deg, hsla(115, 86%, 41%, 0.6) 0%, hsla(156, 71%, 96%, 1) 50%, hsla(29, 100%, 44%, 0.6) 100%);
+
+    background: -webkit-linear-gradient(90deg, hsla(115, 86%, 41%, 0.6) 0%, hsla(156, 71%, 96%, 1) 50%, hsla(29, 100%, 44%, 0.6) 100%);
+
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#1EC40F", endColorstr="#EDFCF6", GradientType=1);
+
+}
+
+.main-box {
+    width: 70%;
+    min-height: 90vh;
+    background-color: white;
+}
+
+img {
+    /* object-fit: cover; */
+    width: 100%;
+    height: 90vh;
+    transform: scaleX(-1);
+}
+
+.input-div {
+    height: 15vh;
+}
+
+input {
+    width: 80%;
+}
+
+.form-inp {
+    height: 87vh;
+
+}
+
+.form-inp::-webkit-scrollbar {
+    width: 5px;
+    /* Adjust scrollbar width as per your requirement */
+}
+
+.form-inp::-webkit-scrollbar-thumb {
+    background-color: #888;
+    /* Set scrollbar thumb color */
+}
+
+.type-sel select {
+    height: 50%;
+}
