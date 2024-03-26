@@ -1,8 +1,9 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import './Login.css'
 import img from '../../assets/img-back.jpg'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
+import { AuthContext } from '../../context/AuthProvider';
 
 export default function Login() {
     const [type, setType] = useState('doctor')
@@ -13,6 +14,7 @@ export default function Login() {
         password: '',
     })
 
+    const { isAuthenticated, login, logout } = useContext(AuthContext);
 
     const handleSubmit = async (event) => {
         event.preventDefault();
@@ -32,12 +34,15 @@ export default function Login() {
                 //     user: res.data.user,
                 //     token: res.data.token
                 // })
-
-                console.log(res.data);
-
-                localStorage.setItem('auth', JSON.stringify(res.data));
-
-                navigate('/');
+                const { token, user } = res.data
+                console.log(user);
+                login(user)
+                console.log(token)
+                // localStorage.setItem('auth', JSON.stringify(res.data));
+                if (type === 'doctor')
+                    navigate('/doctor')
+                else
+                    navigate('/');
             }
             else {
                 toast.error(res.data.message);
@@ -91,7 +96,7 @@ export default function Login() {
                         </div>
                         <div className="link-to-signup mt-2 text-center">
                             Don't have an account?
-                            <Link to='/'>Register</Link>
+                            <Link to='/signup'>Register</Link>
                         </div>
 
                     </form>

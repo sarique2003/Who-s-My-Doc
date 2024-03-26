@@ -245,7 +245,7 @@ export default function SignUp() {
                 <p className="d-block">Enter your Experience</p>
 
                 <input
-                  type="text"
+                  type="number"
                   className="p-2 b-0 rounded"
                   required
                   placeholder="Enter your experience"
@@ -294,6 +294,22 @@ export default function SignUp() {
                 />
               </div>
 
+              <hr />
+              <div className=" input-div my-3 fs-5">
+                <p className="d-block">
+                  Enter your Location
+                </p>
+
+                <input
+                  type="text"
+                  className="p-2 b-0 rounded"
+                  required
+                  placeholder=""
+                  name="location"
+                  onChange={handlechangeDoctor}
+                  value={doctor.location}
+                />
+              </div>
               <hr />
 
               <div className="submit-button mt-5 d-flex justify-content-center">

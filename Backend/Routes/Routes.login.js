@@ -2,6 +2,7 @@ const express = require('express')
 const { comparePassword } = require('../helper/authHelper')
 const Router = express.Router()
 const jwt = require('jsonwebtoken');
+require('dotenv').config();
 
 module.exports = (conn) => {
     // console.log('reached here')
