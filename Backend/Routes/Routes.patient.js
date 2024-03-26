@@ -44,13 +44,21 @@ module.exports = (conn) => {
     })
 
 
-    //getting the doctors available
-    Router.get('/', (req, res) => {
+    //getting the locations available
+    Router.get('/get-locations', (req, res) => {
         // res.send('hi')
         let sql = `SELECT DISTINCT(location) from doctor;`
         conn.query(sql, (error, result) => {
             if (error) res.send(error)
             res.send(result.map(it => it['location']))
+        })
+    })
+    //getting the specialities available
+    Router.get('/get-specialities', (req, res) => {
+        let sql = `SELECT DISTINCT(specialisation) from doctor;`
+        conn.query(sql, (error, result) => {
+            if (error) res.send(error)
+            res.send(result.map(it => it['specialisation']))
         })
     })
 
@@ -71,19 +79,19 @@ module.exports = (conn) => {
     Router.post('/previous-records', (req, res) => {
         const { email } = req.body
         let sql = `SELECT * FROM previous_records where patient_email='${email}';`
-        try{
+        try {
             conn.query(sql, (error, result) => {
                 if (error) res.status(400).send(error)
                 else if (result.length === 0)
                     res.send("No previous records available")
                 else
-                res.send(result)
+                    res.send(result)
             })
         }
-        catch(error){
+        catch (error) {
             console.log(error)
         }
-        
+
     })
     return Router
 }

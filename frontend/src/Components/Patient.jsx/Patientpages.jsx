@@ -5,33 +5,32 @@ import axios from "axios";
 
 const Patientpages = () => {
 
-  const [locations, setLocation] = useState(['hula'])
+  const [locations, setLocation] = useState(['hula']);
+  const [specialties, setSpecialities] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
 
-  const specialties = [
-    "Cardiologist",
-    "Dermatologist",
-    "Endocrinologist",
-    "Gastroenterologist",
-    "Hematologist",
-    "Neurologist",
-    "Oncologist",
-    "Pediatrician",
-    "Psychiatrist",
-    "Surgeon",
-    "Urologist",
-  ];
+
   //getting the locations available
   const fetchlocations = async () => {
-    await axios.get(`http://localhost:3000/patient`).then((result) => {
+    await axios.get(`http://localhost:3000/patient/get-locations`).then((result) => {
       console.log(result.data)
       setLocation(result.data)
     }).catch((error) => {
       console.log(error)
     })
   }
+
+  const fetchSpecialities = async () => {
+    await axios.get(`http://localhost:3000/patient/get-specialities`).then((result) => {
+      setSpecialities(result.data)
+    }).catch((error) => {
+      console.log(error)
+    })
+
+  }
   useEffect(() => {
-    fetchlocations()
+    fetchlocations();
+    fetchSpecialities();
   }, [])
 
   //getting the dates available
@@ -43,41 +42,13 @@ const Patientpages = () => {
   // Format the dates in yyyy-mm-dd format for the input field
   minDate = minDate.toISOString().split('T')[0];
   maxDate = maxDate.toISOString().split('T')[0];
+
   const [formData, setFormData] = useState({
     specialisation: specialties[0],
     location: locations[0],
     date: minDate,
   });
-  const doctors = [
-    {
-      specialisation: "Cardiologist",
-      name: "Dr. Smith",
-      regNo: "12345",
-      qualification: "MD",
-      location: "Newtown",
-      fees: "$100",
-      availableTimeSlots: ["10:00 AM", "11:00 AM"],
-    },
-    {
-      specialisation: "Cardiologist",
-      name: "Dr. Johnson",
-      regNo: "67890",
-      qualification: "MBBS",
-      location: "Serampore",
-      fees: "$80",
-      availableTimeSlots: ["9:00 AM", "2:00 PM"],
-    },
-    {
-      specialisation: "Endocrinologist",
-      name: "Dr. Williams",
-      regNo: "54321",
-      qualification: "MD",
-      location: "Naihati",
-      fees: "$120",
-      availableTimeSlots: ["11:00 AM", "3:00 PM"],
-    },
-    // Add more doctors as needed
-  ];
+
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -87,15 +58,44 @@ const Patientpages = () => {
     });
   };
 
+  //for booking the slot
+  const [bookingDetails, setBookingDetails] = useState({
+    doctor_email: '',
+    patient_email: 'pat1@email',  //later it will be fetched from the context api
+    date_of_appointment: minDate,
+    slot_booked: 0
+  });
+
+  // const handlechangeBookingDetails = (name, value) => {
+  //   setBookingDetails((details) => {
+  //     return { ...details, [name]: value }
+  //   })
+  // }
+  const handlechangeBookingDetails = async (name, value) => {
+    return new Promise((resolve) => {
+      setBookingDetails((details) => {
+        const updatedDetails = { ...details, [name]: value };
+        resolve(updatedDetails);
+        return updatedDetails;
+      });
+    });
+  };
+
+
+  const bookDoctor = async () => {
+    console.log("Booking details before the api call ", bookingDetails);
+    // const res = await axios.post(`http://localhost:3000/patient/booking`, bookingDetails);
+  }
+
   const handleSubmit = async (e) => {
     e.preventDefault();
 
     console.log(formData); // Logging form data to console for demonstration
-    if(formData.location!='hulu'){
-      axios.post(`http://localhost:3000/patient/find-doctor`,formData).then((result)=>{
+    if (formData.location != 'hulu') {
+      axios.post(`http://localhost:3000/patient/find-doctor`, formData).then((result) => {
         console.log(result.data)
         setFilteredDoctors(result.data)
-      }).catch((error)=>{
+      }).catch((error) => {
         crossOriginIsolated.log(error)
       })
     }
@@ -213,10 +213,14 @@ const Patientpages = () => {
               <input
                 type="date"
                 name="date"
-                min={minDate}
-                max={maxDate}
+                // min={minDate}   //for testing purpose removing the constraint
+                // max={maxDate}
                 value={formData.date}
-                onChange={handleChange}
+                onChange={(event) => {
+                  handleChange(event);
+                  handlechangeBookingDetails("date_of_appointment", formData.date);
+                  // console.log(bookingDetails.date_of_appointment);
+                }}
                 style={{ marginBottom: "20px", width: "100%", padding: "8px" }}
               />
               <button
@@ -290,10 +294,28 @@ const Patientpages = () => {
                         Fees: {doctor.fees}
                       </label>
                       <br />
-                      {/* <label htmlFor={`doctor${index}`}>
+                      {
+                        doctor.slots.map((slot, index2) => (
+                          slot ?
+                            <button key={index2} style={{
+                              background: "green", color: "white", margin: "4px"
+                            }}
+                              onClick={async () => {
+
+                                await handlechangeBookingDetails("doctor_email", doctor.email);
+                                await handlechangeBookingDetails("slot_booked", index2);
+                                bookDoctor();
+
+                              }}
+                            > Book Slot {doctor.timeslot_start + index2} : 00 Hr</button> :
+                            <button key={index2} disabled={true} style={{ background: "red", color: "white", margin: "4px" }}> Unavialable  {doctor.timeslot_start + index2} : 00 Hr</button>
+
+                        ))
+                      }
+                      {/* { <label htmlFor={`doctor${index}`}>
                         Available time slots:{" "}
                         {doctor.availableTimeSlots.join(", ")}
-                      </label> */}
+                      </label> } */}
                       <br />
                     </li>
                   ))}
@@ -316,7 +338,7 @@ const Patientpages = () => {
             </div>
           </div>
         </div>
-      </div>
+      </div >
     </>
   );
 };
