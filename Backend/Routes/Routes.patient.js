@@ -16,6 +16,7 @@ module.exports = (conn) => {
 
             let final_list = []
             doc_list.map((doc, index) => {
+                console.log(doc, date);
                 sql = `SELECT slot_booked FROM booking_details WHERE doctor_email='${doc.email}' AND date_of_appointment='${date}';`
                 let arr = new Array(doc.timeslot_end - doc.timeslot_start).fill(1);
                 // console.log(arr)
@@ -24,6 +25,7 @@ module.exports = (conn) => {
                     // res.send(values)
 
                     values = values.map((val) => {
+                        console.log(val);
                         arr[val['slot_booked']] = 0
                         return val
                     })
@@ -55,6 +57,7 @@ module.exports = (conn) => {
     })
     //getting the specialities available
     Router.get('/get-specialities', (req, res) => {
+        // res.send('hi')
         let sql = `SELECT DISTINCT(specialisation) from doctor;`
         conn.query(sql, (error, result) => {
             if (error) res.send(error)
@@ -64,12 +67,12 @@ module.exports = (conn) => {
 
 
     //booking for the doctor
-    Router.post('/booking', (req, res) => {
+    Router.post('/book-doctor', (req, res) => {
 
         let sql = `INSERT INTO booking_details VALUES (?,?,?,?);`
         conn.query(sql, Object.values(req.body), (error, result) => {
             if (error) res.status(400).send(error)
-            res.send(req.body)
+            else res.send(req.body)
         })
 
 

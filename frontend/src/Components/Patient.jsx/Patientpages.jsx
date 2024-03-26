@@ -1,14 +1,16 @@
 import React, { useEffect, useState } from "react";
 import img from "../../assets/backgoround.jpg";
 import Navbar from "../Navbar/Navbar";
+import "./Patientpages.css"
 import axios from "axios";
+import { useNavigate } from "react-router-dom";
 
 const Patientpages = () => {
 
-  const [locations, setLocation] = useState(['hula']);
+  const [locations, setLocation] = useState([]);
   const [specialties, setSpecialities] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
-
+  const navigate = useNavigate();
 
   //getting the locations available
   const fetchlocations = async () => {
@@ -66,25 +68,19 @@ const Patientpages = () => {
     slot_booked: 0
   });
 
-  // const handlechangeBookingDetails = (name, value) => {
-  //   setBookingDetails((details) => {
-  //     return { ...details, [name]: value }
-  //   })
-  // }
-  const handlechangeBookingDetails = async (name, value) => {
-    return new Promise((resolve) => {
-      setBookingDetails((details) => {
-        const updatedDetails = { ...details, [name]: value };
-        resolve(updatedDetails);
-        return updatedDetails;
-      });
-    });
-  };
+  const handlechangeBookingDetails = (name, value) => {
+    setBookingDetails((details) => {
+      return { ...details, [name]: value }
+    })
+  }
+
 
 
   const bookDoctor = async () => {
     console.log("Booking details before the api call ", bookingDetails);
-    // const res = await axios.post(`http://localhost:3000/patient/booking`, bookingDetails);
+    const res = await axios.post(`http://localhost:3000/patient/book-doctor`, bookingDetails);
+    // navigate("/");   //write here required destination
+
   }
 
   const handleSubmit = async (e) => {
@@ -99,12 +95,6 @@ const Patientpages = () => {
         crossOriginIsolated.log(error)
       })
     }
-    // Filter doctors based on the selected specialisation
-    // const filtered = doctors.filter(
-    //   (doctor) => doctor.specialisation === formData.specialisation
-    // );
-    // setFilteredDoctors(filtered);
-
   };
 
   const doctorSubmit = (e) => {
@@ -190,7 +180,7 @@ const Patientpages = () => {
                 onChange={handleChange}
                 style={{ marginBottom: "10px", width: "100%", padding: "8px" }}
               >
-
+                <option value="">Select Doctor</option>
                 {specialties.map((specialisation, index) => (
                   <option key={index} value={specialisation}>
                     {specialisation}
@@ -264,12 +254,6 @@ const Patientpages = () => {
                 <ul>
                   {filteredDoctors.map((doctor, index) => (
                     <li key={index}>
-                      <input
-                        type="checkbox"
-                        checked={doctor.selected || false}
-                        onChange={() => handleDoctorSelection(index)}
-                        style={{ marginLeft: "-15px" }}
-                      />
                       <label htmlFor={`doctor${index}`}>
                         <strong>{doctor.name}</strong> - {doctor.specialisation}
                       </label>
@@ -297,14 +281,10 @@ const Patientpages = () => {
                       {
                         doctor.slots.map((slot, index2) => (
                           slot ?
-                            <button key={index2} style={{
-                              background: "green", color: "white", margin: "4px"
-                            }}
-                              onClick={async () => {
-
-                                await handlechangeBookingDetails("doctor_email", doctor.email);
-                                await handlechangeBookingDetails("slot_booked", index2);
-                                bookDoctor();
+                            <button key={index2} className={(doctor.email === bookingDetails.doctor_email && index2 === bookingDetails.slot_booked) ? "selected_slot" : "available_slot"}
+                              onClick={() => {
+                                handlechangeBookingDetails("doctor_email", doctor.email);
+                                handlechangeBookingDetails("slot_booked", index2);
 
                               }}
                             > Book Slot {doctor.timeslot_start + index2} : 00 Hr</button> :
@@ -312,16 +292,12 @@ const Patientpages = () => {
 
                         ))
                       }
-                      {/* { <label htmlFor={`doctor${index}`}>
-                        Available time slots:{" "}
-                        {doctor.availableTimeSlots.join(", ")}
-                      </label> } */}
                       <br />
                     </li>
                   ))}
                 </ul>
                 <button
-                  onClick={doctorSubmit}
+                  onClick={bookDoctor}
                   style={{
                     width: "100%",
                     padding: "10px",
@@ -332,7 +308,7 @@ const Patientpages = () => {
                     marginTop: "20px", // Added marginTop
                   }}
                 >
-                  Submit
+                  {bookingDetails.doctor_email !== "" ? "Book You Slot" : "Select You Slot"}
                 </button>
               </div>
             </div>
