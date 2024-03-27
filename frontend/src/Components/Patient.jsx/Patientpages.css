@@ -1,26 +1,36 @@
 .selected_slot {
-    background-color: rgb(255, 255, 109);
+    border: 1px solid rgb(255, 255, 0);
+    background-color: rgb(255, 255, 0, .15);
     color: black;
+    padding: 14px 28px;
+    font-size: 16px;
     margin: 4px;
-    border: 1 px solid green;
-    border-radius: 4px;
-    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
 }
 
 .available_slot {
-    background-color: rgba(12, 255, 17, 0.816);
+    border: 1px solid rgb(21, 255, 0);
+    background-color: white;
     color: black;
+    padding: 14px 28px;
+    font-size: 16px;
     margin: 4px;
-    border: 3 px solid rgb(247, 235, 7);
-    padding: 5px;
-    border-radius: 4px;
+    border-radius: 10px;
+    cursor: pointer;
+}
+
+.available_slot:hover {
+    background-color: rgb(21, 255, 0, 0.15)
 }
 
 .unavialable_slot {
-    background-color: rgba(255, 67, 67, 0.479);
+    border: 1px solid rgb(255, 0, 0);
+    background-color: rgba(255, 0, 0, 0.1);
     color: black;
+    padding: 14px 28px;
+    font-size: 16px;
     margin: 4px;
-    border: 1 px solid rgb(255, 0, 0);
-    border-radius: 4px;
-    padding: 5px;
+    border-radius: 10px;
+    cursor: pointer;
 }
