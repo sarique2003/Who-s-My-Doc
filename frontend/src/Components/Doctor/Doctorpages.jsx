@@ -3,39 +3,34 @@ import booking from './resp';
 import "./Doctorpages.css";
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthProvider';
+import Modal from './Modal';
+import Navbar from '../Navbar/Navbar';
 
 const Doctorpages = () => {
-  const date=new Date()
-  const nd=new Date()
-  const dates=[]
-  for(let i=0;i<7;i++){
-    nd.setDate(date.getDate()+i+1)
+
+  const [patientdetails, setpatientDetails] = useState('')
+  const date = new Date()
+  const nd = new Date()
+  const dates = []
+  for (let i = 0; i < 7; i++) {
+    nd.setDate(date.getDate() + i + 1)
     dates.push(nd.toISOString().split('T')[0])
   }
-  
-  let email=''
+
+  let email = ''
   const { isAuthenticated, login, logout } = useContext(AuthContext);
-  if(isAuthenticated[0]){
-    email=isAuthenticated[1].email
+  if (isAuthenticated[0]) {
+    email = isAuthenticated[1].email
   }
-  console.log(email)
-  console.log(dates)
-  const [doctorData,setdoctorData] = useState({
-    schedule: {
-      Monday: [],
-      Tuesday: [],
-      Wednesday: [],
-      Thursday: [],
-      Friday: [],
-      Saturday: [],
-    },
+
+  const [doctorData, setdoctorData] = useState({
     bookings: booking.slots,
     start_time: booking.start_time
   });
 
   // Function to render timing slots
   const renderTimingSlots = () => {
-    const { start_time,bookings } = doctorData;
+    const { start_time, bookings } = doctorData;
     const timingSlots = [];
     for (let i = 0; i < bookings[0].length; i++) {
       timingSlots.push(
@@ -63,16 +58,10 @@ const Doctorpages = () => {
           {dates.map((date, index) => (
             <tr key={date}>
               <td>{date}</td>
-              {/* <td>
-                {slots.map((slot, i) => (
-                  <button key={i} className={slot.status ? 'booked' : 'not-booked'}>
-                    {slot.status ? 'booked' : 'not-booked'}
-                  </button>
-                ))}
-              </td> */}
+
               {bookings[index].map((booking, i) => (
                 <td key={i}>
-                  <button className={booking.status ? 'booked' : 'not-booked'}>
+                  <button className={booking.status ? 'booked' : 'not-booked'} disabled={!booking.status} name={booking.status ?booking.content.patient_email:''} onClick={handleShowPatient} date={dates[index]} slot={i} >
                     {booking.status ? 'booked' : 'not-booked'}
                   </button>
                 </td>
@@ -84,31 +73,65 @@ const Doctorpages = () => {
     );
   };
 
-  const getdatadoctor=async()=>{
-    await axios.post(`http://localhost:3000/doctor`,{'email':email}).then((result)=>{
+  const getdatadoctor = async () => {
+    await axios.post(`http://localhost:3000/doctor`, { 'email': email }).then((result) => {
       console.log(result.data)
-      setdoctorData((data)=>{
-        return {...data,'bookings':result.data.slots,'start_time':result.data.start_time}
+      setdoctorData((data) => {
+        return { ...data, 'bookings': result.data.slots, 'start_time': result.data.start_time }
       })
-    }).catch((error)=>{
+    }).catch((error) => {
       console.log(error)
     })
   }
 
-  useEffect(()=>{
+  const showmodal=()=>{
+    const btn=document.getElementById('openmodal')
+    btn.click();
+  }
+
+  const handleShowPatient = async (e) => {
+    console.log(e.target.getAttribute('date'))
+    await axios.post(`http://localhost:3000/doctor/get-patient`, { 'patient_email': e.target.name }).then((result) => {
+      console.log(result.data)
+      setpatientDetails({...result.data,
+        'date':e.target.getAttribute('date'),
+        'slot':`${doctorData.start_time+parseInt(e.target.getAttribute('slot'))}-${doctorData.start_time+parseInt(e.target.getAttribute('slot'))+1}`
+      })
+      
+    }).catch((error) => {
+      console.log(error)
+    })
+  }
+  // console.log(patientdetails)
+
+  useEffect(() => {
     getdatadoctor()
-  },[])
+  }, [])
+console.log(patientdetails)
+  useEffect(()=>{
+    if(patientdetails!=='')
+    showmodal()
+  },[patientdetails])
+
 
   return (
-    <div className="mt-20" style={{ display: 'flex', justifyContent: 'center' }}>
-      <div  className="schedule-container" style={{ width: 'fit-content', padding: '20px', backgroundColor: '#3498db', borderRadius: '10px', marginLeft: '20px' ,textAlign: 'center'  }}>
+    <>
+    <Navbar/>
+    <div className="mt-5" style={{ display: 'flex', justifyContent: 'center' }}>
+      <div className="schedule-container" style={{ width: 'fit-content', padding: '20px', backgroundColor: '#3498db', borderRadius: '10px', marginLeft: '20px', textAlign: 'center' }}>
         <h2 style={{ color: 'white', marginBottom: '20px' }}>Doctor's Schedule</h2>
         <div className="schedule-container">
           {renderSchedule()}
         </div>
       </div>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id='openmodal' style={{display:'none'}}>
+      
+        Launch demo modal
+      </button>
+      <Modal patientdetails={patientdetails} />
     </div>
-   
+    </>
+
   );
 };
 

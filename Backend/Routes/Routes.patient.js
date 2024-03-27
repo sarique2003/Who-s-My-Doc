@@ -89,14 +89,15 @@ module.exports = (conn) => {
                 // else if (result.length === 0)
                 //     res.send("No previous records available")
                 else {
-                    const records = result;
+                    let records = result;
+                    // records.date_of_appointment.toISOString().split('T')[0]
                     // console.log(records);
                     let final_records = [];
                     records.map((rec, index) => {
                         // console.log(rec);
                         let sql_ = `SELECT name, specialisation, qualification, timeslot_start, fees, location FROM Doctor WHERE email='${rec.doctor_email}'`;
                         conn.query(sql_, (error, values) => {
-                            final_records.push({ ...rec, 'doctor': values[0] })
+                            final_records.push({ ...rec, 'doctor': values[0],'date_of_appointment':rec.date_of_appointment.toISOString().split('T')[0] })
                             if (index === records.length - 1)
                                 res.send(final_records)
                         })

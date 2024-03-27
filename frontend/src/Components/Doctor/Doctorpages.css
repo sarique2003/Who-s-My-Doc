@@ -17,7 +17,7 @@
     background-color: #f2f2f2;
   }
   
-  button {
+  .schedule-container button {
     border: none;
     border-radius: 10%;
     padding: 10px;
@@ -37,15 +37,23 @@
     border-radius: 10%;
     background-color: #7ed957; 
     color: rgb(16, 15, 15);
+    transition: 0.5s all;
   }
-  .mt-20{
-    transform: translateY(20%);
-
-  }
+ 
 
   .schedule-container {
     background: hsla(115, 86%, 41%, 0.8);
     background: linear-gradient(90deg, hsla(115, 86%, 41%, 0.6) 0%, hsla(156, 71%, 96%, 1) 50%, hsla(29, 94%, 45%, 0.805) 100%);
     background: -moz-linear-gradient(90deg, hsla(115, 86%, 41%, 0.6) 0%, hsla(156, 71%, 96%, 1) 50%, hsla(29, 100%, 44%, 0.773) 100%);
     background: -webkit-linear-gradient(90deg, hsla(115, 86%, 41%, 0.6) 0%, hsla(156, 71%, 96%, 1) 50%, hsla(29, 100%, 44%, 0.759) 100%);
+    min-width: 70%;
+  
   }
+
+  .booked:hover{
+    background-color: rgb(2, 93, 2);
+    color: white;
+  }
+  .modal-backdrop {
+    z-index: 1040; 
+}

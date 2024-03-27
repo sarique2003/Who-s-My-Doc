@@ -20,7 +20,7 @@ const booking={
             {
                 "status": true,
                 "content": {
-                    "patient_email": "user3@gmail.com",
+                    "patient_email": "user1@gmail.com",
                     "date": "2024-03-26T00:00:00.000Z",
                     "slot": 3
                 }

@@ -62,12 +62,17 @@ module.exports = (conn) => {
 
     })
 
-    Router.post('/patient',(req,res)=>{
-        const {date,doctor_email,patient_email,slot}=req.body
-        let sql=`SELECT p.email,p.name,p.sex,p.age from patient p,booking_details bd WHERE bd.patient_email=p.email AND bd.patient_email='${patient_email}' AND bd.doctor_email='${doctor_email}' AND bd.date_of_appointment='${date}' AND bd.slot_booked=${slot};`
+    Router.post('/get-patient',(req,res)=>{
+        const {patient_email}=req.body
+        // let sql=`SELECT p.email,p.name,p.sex,p.age from patient p,booking_details bd WHERE bd.patient_email=p.email AND bd.patient_email='${patient_email}' AND bd.doctor_email='${doctor_email}' AND bd.date_of_appointment='${date}' AND bd.slot_booked=${slot};`
+        let sql=`SELECT name,email,age,sex FROM patient WHERE email='${patient_email}'`
         conn.query(sql,(error,result)=>{
             if(error) res.status(400).send(error)
-            res.send(result)
+            if(result.length==0){
+                res.status(400).send('Error')
+                return
+            }
+            res.send(result[0])
         })
     })
     return Router
