@@ -22,7 +22,7 @@ function App() {
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path="/doctor" element={<Doctorpages />} />
         <Route exact path="" element={<Home />} />
-        <Route exact path="" element={<Patientpages />} />
+        <Route exact path="/patient" element={<Patientpages />} />
         <Route exact path="/patient-profile" element={<PatientProfile />} />
       </Routes>
     </BrowserRouter>
