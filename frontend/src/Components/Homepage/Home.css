@@ -1,0 +1,41 @@
+.container-main {
+    width: 100vw;
+    /* background-color: aqua; */
+    height: 100vh;
+    background: white;
+    filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#1EC40F", endColorstr="#EDFCF6", GradientType=1);
+
+}
+
+.bg-custom-blue {
+    background-color: rgb(49, 75, 147);
+  }
+  
+.main-text {
+    font-weight: bold;
+    animation: bounce 0.5s infinite alternate;
+    margin-top:150px ; /* Example animation */
+    margin-left: 120px;
+    font-size: 60px;
+    display: inline-block;
+    word-break: break-word; /* Allow word breaking */
+  }
+  
+  @keyframes bounce {
+    0% {
+      transform: translateY(3);
+    }
+    100% {
+      transform: translateY(-5px);
+    }
+  }
+
+.healthcare-message {
+    color: #666; /* Grey color */
+    max-width: 600px; /* Example maximum width */
+    margin: 0 auto; /* Center the paragraph */
+    font-size: 16px; /* Adjust font size as needed */
+    line-height: 1.5; /* Adjust line height as needed */
+}
+
+
