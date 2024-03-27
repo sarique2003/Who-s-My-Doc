@@ -86,15 +86,15 @@ module.exports = (conn) => {
             conn.query(sql, (error, result) => {
                 // console.log(result);
                 if (error) res.status(400).send(error)
-                else if (result.length === 0)
-                    res.send("No previous records available")
+                // else if (result.length === 0)
+                //     res.send("No previous records available")
                 else {
                     const records = result;
                     // console.log(records);
                     let final_records = [];
                     records.map((rec, index) => {
                         // console.log(rec);
-                        let sql_ = `SELECT name, specialisation, timeslot_start, fees, location FROM Doctor WHERE email='${rec.doctor_email}'`;
+                        let sql_ = `SELECT name, specialisation, qualification, timeslot_start, fees, location FROM Doctor WHERE email='${rec.doctor_email}'`;
                         conn.query(sql_, (error, values) => {
                             final_records.push({ ...rec, 'doctor': values[0] })
                             if (index === records.length - 1)
