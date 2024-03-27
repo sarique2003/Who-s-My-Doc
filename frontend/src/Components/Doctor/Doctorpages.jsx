@@ -1,9 +1,26 @@
-import React, { useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import booking from './resp';
 import "./Doctorpages.css";
+import axios from 'axios';
+import { AuthContext } from '../../context/AuthProvider';
 
 const Doctorpages = () => {
-  const [doctorData] = useState({
+  const date=new Date()
+  const nd=new Date()
+  const dates=[]
+  for(let i=0;i<7;i++){
+    nd.setDate(date.getDate()+i+1)
+    dates.push(nd.toISOString().split('T')[0])
+  }
+  
+  let email=''
+  const { isAuthenticated, login, logout } = useContext(AuthContext);
+  if(isAuthenticated[0]){
+    email=isAuthenticated[1].email
+  }
+  console.log(email)
+  console.log(dates)
+  const [doctorData,setdoctorData] = useState({
     schedule: {
       Monday: [],
       Tuesday: [],
@@ -18,9 +35,9 @@ const Doctorpages = () => {
 
   // Function to render timing slots
   const renderTimingSlots = () => {
-    const { start_time } = doctorData;
+    const { start_time,bookings } = doctorData;
     const timingSlots = [];
-    for (let i = 0; i < 4; i++) {
+    for (let i = 0; i < bookings[0].length; i++) {
       timingSlots.push(
         <td key={i} style={{ width: '20%' }}>
           {start_time + i}:00 - {start_time + i + 1}:00
@@ -38,21 +55,21 @@ const Doctorpages = () => {
         <thead>
           <tr>
             <th>Day</th>
-            <th>Schedule</th>
+            {/* <th>Schedule</th> */}
             {renderTimingSlots()}
           </tr>
         </thead>
         <tbody>
-          {Object.entries(schedule).map(([day, slots], index) => (
-            <tr key={day}>
-              <td>{day}</td>
-              <td>
+          {dates.map((date, index) => (
+            <tr key={date}>
+              <td>{date}</td>
+              {/* <td>
                 {slots.map((slot, i) => (
                   <button key={i} className={slot.status ? 'booked' : 'not-booked'}>
                     {slot.status ? 'booked' : 'not-booked'}
                   </button>
                 ))}
-              </td>
+              </td> */}
               {bookings[index].map((booking, i) => (
                 <td key={i}>
                   <button className={booking.status ? 'booked' : 'not-booked'}>
@@ -66,6 +83,21 @@ const Doctorpages = () => {
       </table>
     );
   };
+
+  const getdatadoctor=async()=>{
+    await axios.post(`http://localhost:3000/doctor`,{'email':email}).then((result)=>{
+      console.log(result.data)
+      setdoctorData((data)=>{
+        return {...data,'bookings':result.data.slots,'start_time':result.data.start_time}
+      })
+    }).catch((error)=>{
+      console.log(error)
+    })
+  }
+
+  useEffect(()=>{
+    getdatadoctor()
+  },[])
 
   return (
     <div className="mt-20" style={{ display: 'flex', justifyContent: 'center' }}>
