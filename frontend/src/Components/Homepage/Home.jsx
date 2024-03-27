@@ -3,23 +3,27 @@ import "./Home.css";
 import Container from "react-bootstrap/Container";
 import Nav from "react-bootstrap/Nav";
 import Navbar from "react-bootstrap/Navbar";
-import NavDropdown from "react-bootstrap/NavDropdown";
+import img01 from "../../assets/doc1.jpeg";
+import img02 from "../../assets/doc2.jpeg";
+import img03 from "../../assets/doc3.jpg";
+import img04 from "../../assets/doc4.jpeg";
 function Home() {
   return (
     <div className="container-main">
       <Navbar expand="lg" className="bg-custom-blue">
         <Container>
-          <Navbar.Brand href="#home">Whos my Doc</Navbar.Brand>
+          <Navbar.Brand className="ml-3px">Whos my Doc</Navbar.Brand>
           <Navbar.Toggle aria-controls="basic-navbar-nav" />
           <Navbar.Collapse id="basic-navbar-nav">
-            <Nav className="me-auto">
+            <Nav className="ms-auto">
+              {" "}
+              {/* Added ms-auto class */}
               <Nav.Link href="#signup">Register</Nav.Link>
               <Nav.Link href="#login">Login</Nav.Link>
             </Nav>
           </Navbar.Collapse>
         </Container>
       </Navbar>
-
       <div className="main-text">
         <text className="mt-8"> Your health </text>
         <text>our priority</text>
@@ -33,6 +37,19 @@ function Home() {
           development skills, we aim to make a positive impact on people's lives
           by providing innovative solutions and compassionate care.
         </p>
+      </div>
+
+      <div class="image-container">
+        <img src={img01} alt="Doctor 1" />
+      </div>
+      <div class="image-container">
+        <img src={img02} alt="Doctor 2" />
+      </div>
+      <div class="image-container">
+        <img src={img03} alt="Doctor 3" />
+      </div>
+      <div class="image-container">
+        <img src={img04} alt="Doctor 4" />
       </div>
     </div>
   );

@@ -11,7 +11,7 @@ const loginRouter = require('./Routes/Routes.login')
 const registerRouter = require('./Routes/Routes.register')
 const patientRoute = require('./Routes/Routes.patient.js')
 const doctorRoute = require('./Routes/Routes.doctor.js')
-process.env.TZ = 'UTC';
+process.env.TZ = 'IST';
 
 
 app.use(express.json());
