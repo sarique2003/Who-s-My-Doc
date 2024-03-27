@@ -1,45 +1,65 @@
 import React, { useState } from 'react';
+import booking from './resp';
+import "./Doctorpages.css";
 
 const Doctorpages = () => {
   const [doctorData] = useState({
-    name: 'Dr. John Doe',
-    rating: 4.5,
-    specialization: 'Cardiologist',
-    location: 'Newtown',
     schedule: {
-      Monday: ['10:00 AM', '11:00 AM', '12:00 PM'],
-      Tuesday: ['9:00 AM', '10:00 AM', '11:00 AM'],
-      Wednesday: ['2:00 PM', '3:00 PM', '4:00 PM'],
-      Thursday: ['11:00 AM', '12:00 PM', '1:00 PM'],
-      Friday: ['9:00 AM', '10:00 AM', '11:00 AM'],
-      Saturday: ['10:00 AM', '11:00 AM', '12:00 PM'],
-    },
-    bookings: {
-      Monday: ['Patient 1', 'Patient 2'],
-      Tuesday: ['Patient 3'],
+      Monday: [],
+      Tuesday: [],
       Wednesday: [],
-      Thursday: ['Patient 4'],
+      Thursday: [],
       Friday: [],
       Saturday: [],
     },
+    bookings: booking.slots,
+    start_time: booking.start_time
   });
 
+  // Function to render timing slots
+  const renderTimingSlots = () => {
+    const { start_time } = doctorData;
+    const timingSlots = [];
+    for (let i = 0; i < 4; i++) {
+      timingSlots.push(
+        <td key={i} style={{ width: '20%' }}>
+          {start_time + i}:00 - {start_time + i + 1}:00
+        </td>
+      );
+    }
+    return timingSlots;
+  };
+
+  // Function to render schedule
   const renderSchedule = () => {
+    const { schedule, bookings } = doctorData;
     return (
       <table className="table">
         <thead>
           <tr>
             <th>Day</th>
             <th>Schedule</th>
-            <th>Bookings</th>
+            {renderTimingSlots()}
           </tr>
         </thead>
         <tbody>
-          {Object.keys(doctorData.schedule).map(day => (
+          {Object.entries(schedule).map(([day, slots], index) => (
             <tr key={day}>
               <td>{day}</td>
-              <td>{doctorData.schedule[day].join(', ')}</td>
-              <td>{doctorData.bookings[day].join(', ')}</td>
+              <td>
+                {slots.map((slot, i) => (
+                  <button key={i} className={slot.status ? 'booked' : 'not-booked'}>
+                    {slot.status ? 'booked' : 'not-booked'}
+                  </button>
+                ))}
+              </td>
+              {bookings[index].map((booking, i) => (
+                <td key={i}>
+                  <button className={booking.status ? 'booked' : 'not-booked'}>
+                    {booking.status ? 'booked' : 'not-booked'}
+                  </button>
+                </td>
+              ))}
             </tr>
           ))}
         </tbody>
@@ -48,24 +68,16 @@ const Doctorpages = () => {
   };
 
   return (
-    <div className='mt-20' style={{ display: 'flex', justifyContent: 'center' }}>
-      <div style={{ width: '600px', padding: '20px', backgroundColor: '#3498db', borderRadius: '10px' }}>
-        <h2 style={{ color: 'white', marginBottom: '20px' }}>Doctor Information</h2>
-        <div style={{ color: 'white' }}>
-          <p><strong>Name:</strong> {doctorData.name}</p>
-          <p><strong>Rating:</strong> {doctorData.rating}</p>
-          <p><strong>Specialization:</strong> {doctorData.specialization}</p>
-          <p><strong>Location:</strong> {doctorData.location}</p>
+    <div className="mt-20" style={{ display: 'flex', justifyContent: 'center' }}>
+      <div  className="schedule-container" style={{ width: 'fit-content', padding: '20px', backgroundColor: '#3498db', borderRadius: '10px', marginLeft: '20px' ,textAlign: 'center'  }}>
+        <h2 style={{ color: 'white', marginBottom: '20px' }}>Doctor's Schedule</h2>
+        <div className="schedule-container">
+          {renderSchedule()}
         </div>
       </div>
-
-      <div style={{ width: '600px', padding: '20px', backgroundColor: '#3498db', borderRadius: '10px', marginLeft: '20px' }}>
-        <h2 style={{ color: 'white', marginBottom: '20px' }}>Doctor's Schedule</h2>
-        {renderSchedule()}
-      </div>
     </div>
+   
   );
-}
+};
 
 export default Doctorpages;
-
