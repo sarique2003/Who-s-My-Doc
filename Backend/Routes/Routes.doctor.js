@@ -2,8 +2,11 @@ const express = require('express')
 const Router = express.Router()
 
 module.exports = (conn) => {
-    const date = new Date(); // Current date and time
+    let date = new Date(); // Current date and time
+    // const newdate = new Date();
+    // date.setDate(date.getDate() + 1);
     const dateString = date.toISOString().split('T')[0]
+    console.log(date)
     // let sql=`SELECT * from booking_details WHERE date_of_appointment<'${dateString}';`
     // conn.query(sql,(error,result)=>{
     //     if(error) console.log(error)
@@ -17,8 +20,8 @@ module.exports = (conn) => {
     // })
     
     Router.post('/', (req, res) => {
-        const date = new Date(); // Current date and time
-        const dateString = date.toISOString().split('T')[0]
+        // const date = new Date(); // Current date and time
+        // const dateString = date.toISOString().split('T')[0]
 
         const nextWeek = new Date();
         nextWeek.setDate(date.getDate() + 7);
@@ -29,6 +32,8 @@ module.exports = (conn) => {
         let sql = `SELECT timeslot_start,timeslot_end FROM doctor WHERE email='${email}';`
         conn.query(sql, (error, result) => {
             if (error) res.status(400).send(error)
+            else if(result.length==0)
+            return
             doc = result[0]
             let final_slots = []
             for (let i = 0; i < 7; i++)
@@ -44,7 +49,7 @@ module.exports = (conn) => {
                 result.map((res) => {
                     res.date_of_appointment.setUTCHours(0, 0, 0, 0);
                     let val = res.date_of_appointment - date
-                    
+                    console.log(res.date_of_appointment,date,val)
                     if (val >= 0)
                         final_slots[val / 86400000][res.slot_booked] = {status:true,content:{patient_email:res.patient_email,date:res.date_of_appointment,slot:res.slot_booked}}
 
