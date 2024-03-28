@@ -9,7 +9,7 @@ export default function NavBar() {
 
     const handlelogout = () => {
         logout()
-        // navigate('/login')
+        navigate('/login')
     }
     useEffect(() => {
         // if (isAuthenticated[0] === false)
@@ -20,14 +20,16 @@ export default function NavBar() {
         <div>
             {
                 // isAuthenticated[0] &&
-                <nav className="navbar navbar-expand-lg bg-body-tertiary">
+                <nav className="navbar navbar-expand-lg bg-custom-blue">
                     <div className="container-fluid">
-                        <a className="navbar-brand" to="#">Navbar</a>
+                        <Link className="navbar-brand" to="/">Navbar</Link>
                         <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
                         <div className="collapse navbar-collapse" id="navbarNav">
                             <ul className="navbar-nav" style={{ width: '100%' }}>
+                               {isAuthenticated[0] &&
+                               <>
                                 <li className="nav-item ms-auto">
                                     <Link className="nav-link active" aria-current="page" to="/patient">Book Doctor</Link>
                                 </li>
@@ -40,12 +42,13 @@ export default function NavBar() {
                                 <li className="nav-item">
                                     <Link className="nav-link" to="#">{isAuthenticated[1]?.name}</Link>
                                 </li>
+                                </>}
 
-                                <li className="nav-item">
+                                <li className="nav-item ms-auto">
                                     {
                                         isAuthenticated[0] ?
                                             <button className="btn btn-danger" onClick={handlelogout}>Logout</button> :
-                                            <button className="btn btn-success" onClick={() => navigate('/login')}>Login</button>
+                                            <button className="btn btn-primary" onClick={() => navigate('/login')}>Login</button>
 
                                     }
                                 </li>

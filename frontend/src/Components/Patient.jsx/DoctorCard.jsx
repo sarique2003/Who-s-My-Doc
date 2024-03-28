@@ -1,7 +1,8 @@
 import React from 'react'
 import './DoctorCard.css'
 
-function DoctorCard({ doctor, index, handlechangeBookingDetails, bookingDetails }) {
+function DoctorCard({ doctor, index, handlechangeBookingDetails, bookingDetails, date, loc, fees }) {
+    console.log(doctor)
     return (
 
         <li key={index} className='doctor-card-li'>
@@ -44,8 +45,16 @@ function DoctorCard({ doctor, index, handlechangeBookingDetails, bookingDetails 
                         slot ?
                             <button key={index2} className={(doctor.email === bookingDetails.doctor_email && index2 === bookingDetails.slot_booked) ? "selected_slot" : "available_slot"}
                                 onClick={() => {
+                                   
                                     handlechangeBookingDetails("doctor_email", doctor.email);
                                     handlechangeBookingDetails("slot_booked", index2);
+                                    handlechangeBookingDetails("date_of_appointment", date);
+                                    handlechangeBookingDetails("doctor_name", doctor.name);
+                                    handlechangeBookingDetails('location', loc)
+                                    handlechangeBookingDetails('fees', doctor.fees)
+                                    handlechangeBookingDetails('timeslot_start',doctor.timeslot_start)
+                                //    handlechangeBookingDetails(newobj)
+
 
                                 }}
                             > {(doctor.email === bookingDetails.doctor_email && index2 === bookingDetails.slot_booked) ? "Selected Slot" : "Book Slot"} {doctor.timeslot_start + index2} : 00 Hr</button> :

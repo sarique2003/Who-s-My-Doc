@@ -8,6 +8,7 @@ import DoctorSearchForm from "./doctorSearchForm";
 import DoctorCard from "./DoctorCard";
 import { AuthContext } from '../../context/AuthProvider';
 import NavBar from "../Navbar/NavBar";
+import Modal from "./Modal";
 
 const Patientpages = () => {
 
@@ -15,6 +16,7 @@ const Patientpages = () => {
   const [locations, setLocation] = useState([]);
   const [specialties, setSpecialities] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
+  // const [bookingDetails,setBookingDetails]=useState('')
   const navigate = useNavigate();
 
 
@@ -80,17 +82,25 @@ const Patientpages = () => {
     slot_booked: 0
   });
 
-  const handlechangeBookingDetails = (name, value) => {
+  const handlechangeBookingDetails = (name,value) => {
+    // console.log(obj)
+    console.log(name,value)
     setBookingDetails((details) => {
       return { ...details, [name]: value }
     })
+    // setBookingDetails((prevobj)=>{
+    //   return {...prevobj,...obj}
+    // })
   }
 
 
 
   const bookDoctor = async () => {
-    console.log("Booking details before the api call ", bookingDetails);
-    const res = await axios.post(`http://localhost:3000/patient/book-doctor`, bookingDetails);
+    // console.log("Booking details before the api call ", bookingDetails);
+    // const res = await axios.post(`http://localhost:3000/patient/book-doctor`, bookingDetails);
+    console.log(bookingDetails)
+    const btn=document.getElementById('openmodalpatientbooking')
+    btn.click()
     // navigate("/");   //write here required destination
 
   }
@@ -142,8 +152,11 @@ const Patientpages = () => {
   return (
     <div>
       <NavBar />
+       <Modal bookingDetails={bookingDetails} setBookingDetails={setBookingDetails} refreshpage={handleSubmit}/>
+       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id='openmodalpatientbooking' style={{ display: 'none' }}>
 
-
+          Launch demo modal
+        </button>
       <DoctorSearchForm handleSubmit={handleSubmit} handleChange={handleChange} formData={formData} handlechangeBookingDetails={handlechangeBookingDetails} specialties={specialties} locations={locations} minDate={minDate} maxDate={maxDate}></DoctorSearchForm>
 
 
@@ -158,6 +171,9 @@ const Patientpages = () => {
             handlechangeBookingDetails={handlechangeBookingDetails}
             doctor={doctor}
             bookingDetails={bookingDetails}
+            date={formData.date}
+            loc={formData.location}
+
           />
         ))}
       </ul>
@@ -179,7 +195,7 @@ const Patientpages = () => {
 
           }}
         >
-          {bookingDetails.doctor_email !== "" ? "Book You Slot" : "Select You Slot"}
+          {bookingDetails.doctor_email !== "" ? "Book Your Slot" : "Select Your Slot"}
         </button>
       </div>
     </div>

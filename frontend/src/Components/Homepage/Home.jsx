@@ -13,7 +13,7 @@ import NavBar from "../Navbar/NavBar";
 function Home() {
   const navigate = useNavigate();
   return (
-    <div className="container-main">
+    <div className="container-main-home">
       {/* <Navbar expand="lg" className="bg-custom-blue">
         <Container>
           <Navbar.Brand className="ml-3px">Whos my Doc</Navbar.Brand>
@@ -47,7 +47,7 @@ function Home() {
           >Find Your Doctor</button>
         </div>
         <div class="image-container">
-          <img src={img05} alt="Doctor 1" />
+          <img src={img05} className="shadow" alt="Doctor 1" />
 
         </div>
       </div>
