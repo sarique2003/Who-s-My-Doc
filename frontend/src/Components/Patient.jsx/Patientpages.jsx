@@ -1,18 +1,23 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import img from "../../assets/backgoround.jpg";
-import Navbar from "../Navbar/Navbar";
+import Navbar from "../Navbar/NavBar";
 import "./Patientpages.css"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DoctorSearchForm from "./doctorSearchForm";
 import DoctorCard from "./DoctorCard";
+import { AuthContext } from '../../context/AuthProvider';
+import NavBar from "../Navbar/NavBar";
 
 const Patientpages = () => {
 
+  const { isAuthenticated, login, logout } = useContext(AuthContext);
   const [locations, setLocation] = useState([]);
   const [specialties, setSpecialities] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
   const navigate = useNavigate();
+
+
 
   //getting the locations available
   const fetchlocations = async () => {
@@ -36,6 +41,11 @@ const Patientpages = () => {
     fetchlocations();
     fetchSpecialities();
   }, [])
+
+  useEffect(() => {
+    if (isAuthenticated[0] === false)
+      navigate('/login')
+  }, [isAuthenticated])
 
   //getting the dates available
   const currentDate = new Date();
@@ -130,8 +140,8 @@ const Patientpages = () => {
   };
 
   return (
-    <>
-      {/* <Navbar /> */}
+    <div>
+      <NavBar />
 
 
       <DoctorSearchForm handleSubmit={handleSubmit} handleChange={handleChange} formData={formData} handlechangeBookingDetails={handlechangeBookingDetails} specialties={specialties} locations={locations} minDate={minDate} maxDate={maxDate}></DoctorSearchForm>
@@ -172,7 +182,7 @@ const Patientpages = () => {
           {bookingDetails.doctor_email !== "" ? "Book You Slot" : "Select You Slot"}
         </button>
       </div>
-    </>
+    </div>
   );
 };
 

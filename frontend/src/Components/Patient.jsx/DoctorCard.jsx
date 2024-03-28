@@ -4,7 +4,7 @@ import './DoctorCard.css'
 function DoctorCard({ doctor, index, handlechangeBookingDetails, bookingDetails }) {
     return (
 
-        <li key={index}>
+        <li key={index} className='doctor-card-li'>
             <div className='left'>
 
                 <label htmlFor={`doctor${index}`} className='name'>

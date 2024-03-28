@@ -18,12 +18,14 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
+        <Route exact path="" element={<Home />} />
         <Route exact path="/login" element={<Login />} />
         <Route exact path="/signup" element={<SignUp />} />
         <Route exact path="/doctor" element={<Doctorpages />} />
-        <Route exact path="" element={<Home />} />
         <Route exact path="/patient" element={<Patientpages />} />
         <Route exact path="/patient-profile" element={<PatientProfile />} />
+        <Route exact path="*" element={<div style={{ fontSize: "50px", textAlign: "center", marginTop: "40vh" }}>Page Not Found</div>} />
+
       </Routes>
     </BrowserRouter>
   );

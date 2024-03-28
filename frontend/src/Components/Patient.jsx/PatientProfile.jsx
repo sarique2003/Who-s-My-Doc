@@ -1,6 +1,7 @@
 import axios from 'axios';
 import React, { useEffect, useState } from 'react'
 import BookingRecorCard from './BookingRecorCard';
+import NavBar from '../Navbar/NavBar';
 
 function PatientProfile() {
     const [previousRecords, setPreviousRecords] = useState([]);
@@ -23,6 +24,7 @@ function PatientProfile() {
     }, [previousRecords])
     return (
         <div>
+            <NavBar />
             {
                 previousRecords.map((rec, index) => {
                     return (
