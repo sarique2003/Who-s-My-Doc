@@ -41,7 +41,7 @@ function DoctorSearchForm({ handleSubmit, handleChange, formData, handlechangeBo
                     value={formData.date}
                     onChange={(event) => {
                         handleChange(event);
-                        handlechangeBookingDetails("date_of_appointment", formData.date);
+                        handlechangeBookingDetails("date_of_appointment", event.target.value);
                     }}
                     style={{ marginBottom: "20px", width: "100%", padding: "8px" }}
                 />
