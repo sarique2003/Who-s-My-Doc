@@ -47,6 +47,9 @@ const Patientpages = () => {
   useEffect(() => {
     if (isAuthenticated[0] === false)
       navigate('/login')
+    else {
+      setBookingDetails({ ...bookingDetails, patient_email: isAuthenticated[1].email })  //if user authenticated set patient_email for booking details
+    }
   }, [isAuthenticated])
 
   //getting the dates available
@@ -65,6 +68,9 @@ const Patientpages = () => {
     date: minDate,
   });
 
+  useEffect(()=>{
+    setFilteredDoctors([])
+  },[formData])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -77,7 +83,7 @@ const Patientpages = () => {
   //for booking the slot
   const [bookingDetails, setBookingDetails] = useState({
     doctor_email: '',
-    patient_email: 'pat1@email',  //later it will be fetched from the context api
+    patient_email: '',  //it will be fetched from the context api
     date_of_appointment: minDate,
     slot_booked: 0
   });
@@ -91,6 +97,7 @@ const Patientpages = () => {
     // setBookingDetails((prevobj)=>{
     //   return {...prevobj,...obj}
     // })
+    console.log(bookingDetails);
   }
 
 
