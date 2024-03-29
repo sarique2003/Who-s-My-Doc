@@ -12,6 +12,7 @@ import Doctorpages from "./Components/Doctor/Doctorpages";
 import Home from "./Components/Homepage/Home";
 import PatientProfile from "./Components/Patient.jsx/PatientProfile";
 import DoctorProfile from "./Components/UserProfile/DoctorProfile";
+import ProfilePatient from "./Components/UserProfile/ProfilePatient";
 
 function App() {
   const [count, setCount] = useState(0);
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/patient" element={<Patientpages />} />
         <Route exact path="/patient-profile" element={<PatientProfile />} />
         <Route exact path="/doctor-user-prof" element={<DoctorProfile/>} />
+        <Route exact path="/prof" element={<ProfilePatient/>} />
         
         <Route exact path="*" element={<div style={{ fontSize: "50px", textAlign: "center", marginTop: "40vh" }}>Page Not Found</div>} />
 
