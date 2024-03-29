@@ -6,7 +6,47 @@ require('dotenv').config();
 
 module.exports = (conn) => {
     // console.log('reached here')
-    Router.post('/', (req, res) => {
+
+    function verifyToken(req, res, next) {
+        // Check for token in headers
+        // console.log('header',req.headers)
+        const token = req.headers.authorization && req.headers.authorization.split(' ')[1];
+        if (!token) {
+            next()
+        }
+        // Verify token
+        else {
+
+
+            jwt.verify(token, process.env.JWT_SECRET_KEY, (err, decoded) => {
+                if (err) {
+                    next()
+
+                }
+                // Token is valid, attach decoded user information to request object
+                req.user = decoded;
+                // console.log("hello", req.user)
+                // res.send(['Correct', { type: req.user.type, email: req.user.email, }])
+                let sql = `SELECT * from ${decoded.type} where email='${decoded.email}'`
+                conn.query(sql, (error, result) => {
+                    if (error) res.status(400).send(error)
+                    else if (result.length == 0) {
+                        res.status(400).send('Invalid credentials')
+                    }
+                    else{
+                        delete result[0].password
+                        res.send({
+                            status:true,
+                            user:result[0]
+                        })
+                    }
+                })
+
+            });
+        }
+    }
+
+    Router.post('/', verifyToken, (req, res) => {
         try {
             const { email, password, type } = req.body
             let sql = `SELECT * FROM ${type} WHERE email = '${email}';`
@@ -26,7 +66,7 @@ module.exports = (conn) => {
                     else {
                         delete result[0].password;
                         //token
-                        const token = await jwt.sign({ _id: email }, process.env.JWT_SECRET_KEY, { expiresIn: "7d" });
+                        const token = await jwt.sign({ email: result[0].email, type: type }, process.env.JWT_SECRET_KEY, { expiresIn: "7d" });
                         res.send({
                             status: true,
                             user: { ...result[0], "type": type },

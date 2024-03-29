@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './Login.css'
 import img from '../../assets/img-back.jpg'
 import { Link, useNavigate } from 'react-router-dom'
@@ -39,7 +39,7 @@ export default function Login() {
                 console.log(user);
                 login(user)
                 console.log(token)
-                // localStorage.setItem('auth', JSON.stringify(res.data));
+                localStorage.setItem('whosmydoc', token);
                 if (type === 'doctor')
                     navigate('/doctor')
                 else
@@ -66,8 +66,13 @@ export default function Login() {
         })
     }
 
+    useEffect(()=>{
+        if(isAuthenticated[0])
+        navigate('/')
+    },[isAuthenticated])
+
     return (
-        <div>
+        <div className='highest'>
             <NavBar />
             <div className="container-main rounded d-flex ailgn-content-center ">
                 <div className="main-box rounded m-auto row">

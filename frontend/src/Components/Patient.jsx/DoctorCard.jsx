@@ -58,7 +58,7 @@ function DoctorCard({ doctor, index, handlechangeBookingDetails, bookingDetails,
 
                                 }}
                             > {(doctor.email === bookingDetails.doctor_email && index2 === bookingDetails.slot_booked) ? "Selected Slot" : "Book Slot"} {doctor.timeslot_start + index2} : 00 Hr</button> :
-                            <button key={index2} disabled={true} className='unavialable_slot'> Unavialable  {doctor.timeslot_start + index2} : 00 Hr</button>
+                            <button key={index2} disabled={true} className='unavialable_slot'> Unavailable  {doctor.timeslot_start + index2} : 00 Hr</button>
                     ))
                 }
                 <br />

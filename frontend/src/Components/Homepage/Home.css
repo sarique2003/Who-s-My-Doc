@@ -2,13 +2,13 @@
   width: 100vw;
   /* background-color: aqua; */
   height: 100vh;
-  background: rgba(229, 219, 166, 0.829);
+  /* background: rgba(229, 219, 166, 0.829); */
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#1EC40F", endColorstr="#EDFCF6", GradientType=1);
 
 }
 
-.bg-custom-blue {
-  /* background-color: rgb(22, 83, 203); */
+/* .bg-custom-blue {
+  
   background: hsla(106, 39%, 51%, 1);
 
   background: linear-gradient(90deg, hsla(106, 39%, 51%, 1) 8%, hsla(169, 69%, 38%, 1) 45%, hsla(163, 17%, 44%, 1) 100%);
@@ -18,7 +18,7 @@
   background: -webkit-linear-gradient(90deg, hsla(106, 39%, 51%, 1) 8%, hsla(169, 69%, 38%, 1) 45%, hsla(163, 17%, 44%, 1) 100%);
 
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#69B352", endColorstr="#1EA68D", GradientType=1);
-}
+} */
 
 .main-text {
   font-weight: bold;
