@@ -35,7 +35,7 @@ export default function Login() {
                 //     user: res.data.user,
                 //     token: res.data.token
                 // })
-                const { token, user } = res.data
+                const { token, user,status } = res.data
                 console.log(user);
                 login(user)
                 console.log(token)

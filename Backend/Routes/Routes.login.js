@@ -37,7 +37,9 @@ module.exports = (conn) => {
                         delete result[0].password
                         res.send({
                             status:true,
-                            user:result[0]
+                            user:{...result[0],type:decoded.type},
+                            
+
                         })
                     }
                 })
