@@ -2,8 +2,8 @@
 // PatientProfile.jsx
 
 import React, { useContext, useEffect } from 'react';
-import './ProfilePatient.css'; 
-import img from '../../assets/img-back.jpg'; 
+import './ProfilePatient.css';
+import img from '../../assets/img-back.jpg';
 import { AuthContext } from '../../context/AuthProvider';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../Navbar/NavBar';
@@ -14,7 +14,7 @@ export default function ProfilePatient() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        if (patient.type !== 'patient') 
+        if (patient.type !== 'patient')
             navigate('/');
     }, []);
 
@@ -25,7 +25,7 @@ export default function ProfilePatient() {
                 <div className="container py-5 h-100">
                     <div className="row d-flex justify-content-center align-items-center h-100">
                         <div className="col me-auto ms-auto mb-4 mb-lg-0">
-                            <div className="card mb-3" style={{ borderRadius: ".5rem" }}>
+                            <div className="card mb-3" style={{ borderRadius: ".5rem", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" }}>
                                 <div className="row g-0">
                                     <div className="col-md-4 gradient-custom text-center text-white"
                                         style={{ borderTopLeftRadius: ".3rem", borderBottomLeftRadius: ".2rem" }}>
@@ -60,7 +60,7 @@ export default function ProfilePatient() {
                                                 </div>
                                             </div>
                                             <hr />
-                                         
+
                                         </div>
                                     </div>
                                 </div>

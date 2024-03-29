@@ -6,7 +6,7 @@ export default function NavBar() {
 
     const { isAuthenticated, login, logout } = useContext(AuthContext);
     const navigate = useNavigate()
-    const type=isAuthenticated[0] && isAuthenticated[1].type
+    const type = isAuthenticated[0] && isAuthenticated[1].type
     console.log(type)
     const handlelogout = () => {
         logout()
@@ -30,23 +30,27 @@ export default function NavBar() {
                         </button>
                         <div className="collapse navbar-collapse " id="navbarNav">
                             <ul className="navbar-nav" style={{ width: '100%' }}>
-                               {isAuthenticated[0] &&
-                               <>
-                                <li className="nav-item ms-auto">
-                                    <Link className="nav-link active" aria-current="page" to="/patient">Book Doctor</Link>
-                                </li>
-                                <li className="nav-item">
-                                    <Link className="nav-link active" aria-current="page" to="/patient-profile">Previous Records</Link>
-                                </li>
-                                <li className="nav-item me-auto">
-                                    <Link className="nav-link active" to={`${type==='doctor'?'/doctor-user-prof':''}`}>User Details</Link>
-                                </li>
-                                <li className="nav-item ">
-                                    <Link className="nav-link" to='#'>{isAuthenticated[1]?.name}</Link>
-                                </li>
-                                </>}
+                                {isAuthenticated[0] &&
+                                    <>
+                                        <li className="nav-item ms-auto">
+                                            {
+                                                isAuthenticated[1].type === "patient" ?
+                                                    <Link className="nav-link active" aria-current="page" to="/patient">Book Doctor</Link> :
+                                                    <Link className="nav-link active" aria-current="page" to="/doctor">Booking Log</Link>
+                                            }
+                                        </li>
+                                        <li className="nav-item">
+                                            <Link className="nav-link active" aria-current="page" to={isAuthenticated[1].type === "patient" ? "/patient-profile" : "/doctor-booking-history"}>Previous Records</Link>
+                                        </li>
+                                        <li className="nav-item me-auto">
+                                            <Link className="nav-link active" to={`${type === 'doctor' ? '/doctor-user-prof' : '/patient-user-prof'}`}>User Details</Link>
+                                        </li>
+                                        <li className="nav-item ">
+                                            <Link className="nav-link" to='#'>{isAuthenticated[1]?.name}</Link>
+                                        </li>
+                                    </>}
 
-                                <li className={`nav-item ${!isAuthenticated[0]?'ms-auto':''}`}>
+                                <li className={`nav-item ${!isAuthenticated[0] ? 'ms-auto' : ''}`}>
                                     {
                                         isAuthenticated[0] ?
                                             <button className="btn btn-danger" onClick={handlelogout}>Logout</button> :

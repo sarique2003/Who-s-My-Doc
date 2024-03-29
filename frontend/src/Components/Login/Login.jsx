@@ -35,7 +35,7 @@ export default function Login() {
                 //     user: res.data.user,
                 //     token: res.data.token
                 // })
-                const { token, user,status } = res.data
+                const { token, user, status } = res.data
                 console.log(user);
                 login(user)
                 console.log(token)
@@ -66,10 +66,10 @@ export default function Login() {
         })
     }
 
-    useEffect(()=>{
-        if(isAuthenticated[0])
-        navigate('/')
-    },[isAuthenticated])
+    useEffect(() => {
+        if (isAuthenticated[0])
+            navigate('/')
+    }, [isAuthenticated])
 
     return (
         <div className='highest'>
@@ -81,7 +81,7 @@ export default function Login() {
                         <form className='my-5 ps-2' onSubmit={handleSubmit}>
                             <div className="d-flex  input-div type-sel align-items-center justify-content-center fs-5">
                                 Select the type of User
-                                <select id="dropdown  " name="dropdown" v className='mx-2 p-2 rounded' value={type} onChange={handletype}>
+                                <select id="dropdown  " name="dropdown" v className='mx-2 p-1 rounded' value={type} onChange={handletype}>
                                     <option value="doctor" >Doctor</option>
                                     <option value="patient" >Patient</option>
 
@@ -90,13 +90,13 @@ export default function Login() {
                             <hr />
                             <div className=" input-div my-3 fs-5">
                                 <p className='d-block'>Enter your Email</p>
-                                <input type="email" className='p-2 b-0 rounded' required placeholder='Enter your email' name='email' onChange={handlechangeUser} value={user.email} />
+                                <input type="email" className='p-1 b-0 rounded' required placeholder='Enter your email' name='email' onChange={handlechangeUser} value={user.email} />
                             </div>
                             <hr />
                             <div className=" input-div my-3 fs-5">
                                 <p className='d-block'>Enter your password</p>
 
-                                <input type="password" visible className='p-2 b-0 rounded' required placeholder='Enter your password' name='password' onChange={handlechangeUser} value={user.password} />
+                                <input type="password" visible className='p-1 b-0 rounded' required placeholder='Enter your password' name='password' onChange={handlechangeUser} value={user.password} />
                             </div>
                             <div className="submit-button mt-5 d-flex justify-content-center">
                                 <button className="btn btn-success" >Login</button>
