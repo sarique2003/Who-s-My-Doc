@@ -11,6 +11,7 @@ import img05 from "../../assets/doc5.jpg";
 import { useNavigate } from "react-router-dom";
 import NavBar from "../Navbar/NavBar";
 import { AuthContext } from "../../context/AuthProvider";
+import Footer from "../Footer/Footer";
 function Home() {
   const navigate = useNavigate();
   const { isAuthenticated } = useContext(AuthContext)
@@ -28,7 +29,7 @@ function Home() {
           <text className="mt-8">{isAuthenticated[0] === false || isAuthenticated[1].type === 'patient' ? "Your health our priority" : "Welcome Doctor ..."} </text>
 
 
-          <p class="healthcare-message">
+          <p class="healthcare-message" style={{ textAlign: 'justify', paddingLeft: "20px", paddingTop: '15px' }}>
             We Sarique, Abhik, Krishnendu, Ayush came together to create this
             healthcare management system,driven by our passion for improving
             healthcare management.Every year about 8% healthcare tragedies occur
@@ -39,7 +40,7 @@ function Home() {
             by providing innovative solutions and compassionate care.
           </p>
 
-          <button id="btn-doc-find"
+          <button id="btn-doc-find" style={{ marginLeft: '20px' }}
             onClick={() => { isAuthenticated[0] === false || isAuthenticated[1].type === 'patient' ? navigate("/patient") : navigate("/doctor-booking-history") }}
           >{isAuthenticated[0] === false || isAuthenticated[1].type === 'patient' ? "Find Your Doctor" : "View Your Patients"}</button>
         </div>
@@ -50,7 +51,7 @@ function Home() {
         </div>
       </div>
 
-
+      <Footer />
     </div >
   );
 }

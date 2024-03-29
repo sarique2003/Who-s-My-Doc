@@ -2,6 +2,8 @@ import React, { useContext, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { AuthContext } from '../../context/AuthProvider';
 import './NavBar.css'
+import logo1black from "../../assets/logo1black.png";
+
 export default function NavBar() {
 
     const { isAuthenticated, login, logout } = useContext(AuthContext);
@@ -22,9 +24,11 @@ export default function NavBar() {
         <div>
             {
                 // isAuthenticated[0] &&
-                <nav className="navbar navbar-expand-lg bg-body-tertiary">
-                    <div className="container-fluid">
-                        <Link className="navbar-brand me-auto" to="/">Navbar</Link>
+                <nav className="navbar navbar-expand-lg bg-body-tertiary" style={{ padding: "0px" }}>
+                    <div className="container-fluid" >
+                        <Link className="navbar-brand me-auto" to="/">
+                            <img src={logo1black} style={{ height: "45px", width: "auto", borderRadius: "5px" }} />
+                        </Link>
                         <button className="navbar-toggler " type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                             <span className="navbar-toggler-icon"></span>
                         </button>
