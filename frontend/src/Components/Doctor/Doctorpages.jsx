@@ -4,7 +4,8 @@ import "./Doctorpages.css";
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthProvider';
 import Modal from './Modal';
-import Navbar from '../Navbar/Navbar';
+import NavBar from '../Navbar/NavBar';
+// import Navbar from '../Navbar/NavBar';
 
 const Doctorpages = () => {
 
@@ -35,7 +36,7 @@ const Doctorpages = () => {
     for (let i = 0; i < bookings[0].length; i++) {
       timingSlots.push(
         <td key={i} style={{ width: '20%' }}>
-          {start_time + i}:00 - {start_time + i + 1}:00
+          {start_time + i}:00 - {start_time + i + 1}:00 Hr.
         </td>
       );
     }
@@ -61,7 +62,7 @@ const Doctorpages = () => {
 
               {bookings[index].map((booking, i) => (
                 <td key={i}>
-                  <button className={booking.status ? 'booked' : 'not-booked'} disabled={!booking.status} name={booking.status ?booking.content.patient_email:''} onClick={handleShowPatient} date={dates[index]} slot={i} >
+                  <button className={booking.status ? 'booked' : 'not-booked'} disabled={!booking.status} name={booking.status ? booking.content.patient_email : ''} onClick={handleShowPatient} date={dates[index]} slot={i} >
                     {booking.status ? 'booked' : 'not-booked'}
                   </button>
                 </td>
@@ -84,8 +85,8 @@ const Doctorpages = () => {
     })
   }
 
-  const showmodal=()=>{
-    const btn=document.getElementById('openmodal')
+  const showmodal = () => {
+    const btn = document.getElementById('openmodal')
     btn.click();
   }
 
@@ -93,11 +94,12 @@ const Doctorpages = () => {
     console.log(e.target.getAttribute('date'))
     await axios.post(`http://localhost:3000/doctor/get-patient`, { 'patient_email': e.target.name }).then((result) => {
       console.log(result.data)
-      setpatientDetails({...result.data,
-        'date':e.target.getAttribute('date'),
-        'slot':`${doctorData.start_time+parseInt(e.target.getAttribute('slot'))}-${doctorData.start_time+parseInt(e.target.getAttribute('slot'))+1}`
+      setpatientDetails({
+        ...result.data,
+        'date': e.target.getAttribute('date'),
+        'slot': `${doctorData.start_time + parseInt(e.target.getAttribute('slot'))}-${doctorData.start_time + parseInt(e.target.getAttribute('slot')) + 1}`
       })
-      
+
     }).catch((error) => {
       console.log(error)
     })
@@ -107,29 +109,29 @@ const Doctorpages = () => {
   useEffect(() => {
     getdatadoctor()
   }, [])
-console.log(patientdetails)
-  useEffect(()=>{
-    if(patientdetails!=='')
-    showmodal()
-  },[patientdetails])
+  console.log(patientdetails)
+  useEffect(() => {
+    if (patientdetails !== '')
+      showmodal()
+  }, [patientdetails])
 
 
   return (
     <>
-    <Navbar/>
-    <div className="mt-5" style={{ display: 'flex', justifyContent: 'center' }}>
-      <div className="schedule-container" style={{ width: 'fit-content', padding: '20px', backgroundColor: '#3498db', borderRadius: '10px', marginLeft: '20px', textAlign: 'center' }}>
-        <h2 style={{ color: 'white', marginBottom: '20px' }}>Doctor's Schedule</h2>
-        <div className="schedule-container">
-          {renderSchedule()}
+      <NavBar />
+      <div className="mt-5" style={{ display: 'flex', justifyContent: 'center' }}>
+        <div className="schedule-container" style={{ width: 'fit-content', padding: '0px', backgroundColor: '#3498db', borderRadius: '10px', marginLeft: '20px', textAlign: 'center' }}>
+          <h2 style={{ color: 'black', marginBottom: '20px' }}>Doctor's Schedule</h2>
+          <div className="schedule-container2" style={{ marginLeft: "15px", marginRight: "15px" }}>
+            {renderSchedule()}
+          </div>
         </div>
-      </div>
-      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id='openmodal' style={{display:'none'}}>
-      
-        Launch demo modal
-      </button>
-      <Modal patientdetails={patientdetails} />
-    </div>
+        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id='openmodal' style={{ display: 'none' }}>
+
+          Launch demo modal
+        </button>
+        <Modal patientdetails={patientdetails} />
+      </div >
     </>
 
   );

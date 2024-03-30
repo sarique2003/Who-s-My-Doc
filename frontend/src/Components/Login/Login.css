@@ -224,12 +224,17 @@ body{
     background: -webkit-linear-gradient(90deg, hsla(115, 86%, 41%, 0.6) 0%, hsla(156, 71%, 96%, 1) 50%, hsla(29, 100%, 44%, 0.6) 100%);
 
     filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#1EC40F", endColorstr="#EDFCF6", GradientType=1);
-
+    
+    overflow: hidden;
 }
+/* body::-webkit-scrollbar,#root::-webkit-scrollbar {
+  width: 5px;
+  
+} */
 
 .main-box {
-    width: 70%;
-    min-height: 90vh;
+    width: 60%;
+    min-height: 80vh;
     background-color: white;
 }
 

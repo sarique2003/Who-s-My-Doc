@@ -6,7 +6,7 @@ function DoctorSearchForm({ handleSubmit, handleChange, formData, handlechangeBo
             <h2 style={{ color: "black", marginBottom: "20px", textAlign: "center" }}>
                 Patient Information Form
             </h2>
-            <form onSubmit={handleSubmit}>
+            <form id='searchform' onSubmit={handleSubmit}>
                 <select
                     name="specialisation"
                     value={formData.specialisation}
@@ -36,12 +36,12 @@ function DoctorSearchForm({ handleSubmit, handleChange, formData, handlechangeBo
                 <input
                     type="date"
                     name="date"
-                    // min={minDate}   //for testing purpose removing the constraint
-                    // max={maxDate}
+                    min={minDate}   //for testing purpose removing the constraint
+                    max={maxDate}
                     value={formData.date}
                     onChange={(event) => {
                         handleChange(event);
-                        handlechangeBookingDetails("date_of_appointment", formData.date);
+                        handlechangeBookingDetails("date_of_appointment", event.target.value);
                     }}
                     style={{ marginBottom: "20px", width: "100%", padding: "8px" }}
                 />

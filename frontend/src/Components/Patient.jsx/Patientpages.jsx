@@ -1,18 +1,25 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import img from "../../assets/backgoround.jpg";
-import Navbar from "../Navbar/Navbar";
+import Navbar from "../Navbar/NavBar";
 import "./Patientpages.css"
 import axios from "axios";
 import { useNavigate } from "react-router-dom";
 import DoctorSearchForm from "./doctorSearchForm";
 import DoctorCard from "./DoctorCard";
+import { AuthContext } from '../../context/AuthProvider';
+import NavBar from "../Navbar/NavBar";
+import Modal from "./Modal";
 
 const Patientpages = () => {
 
+  const { isAuthenticated, login, logout } = useContext(AuthContext);
   const [locations, setLocation] = useState([]);
   const [specialties, setSpecialities] = useState([]);
   const [filteredDoctors, setFilteredDoctors] = useState([]);
+  // const [bookingDetails,setBookingDetails]=useState('')
   const navigate = useNavigate();
+
+
 
   //getting the locations available
   const fetchlocations = async () => {
@@ -37,6 +44,14 @@ const Patientpages = () => {
     fetchSpecialities();
   }, [])
 
+  useEffect(() => {
+    if (isAuthenticated[0] === false)
+      navigate('/login')
+    else {
+      setBookingDetails({ ...bookingDetails, patient_email: isAuthenticated[1].email })  //if user authenticated set patient_email for booking details
+    }
+  }, [isAuthenticated])
+
   //getting the dates available
   const currentDate = new Date();
   let minDate = new Date(currentDate);
@@ -53,6 +68,9 @@ const Patientpages = () => {
     date: minDate,
   });
 
+  useEffect(()=>{
+    setFilteredDoctors([])
+  },[formData])
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -65,22 +83,31 @@ const Patientpages = () => {
   //for booking the slot
   const [bookingDetails, setBookingDetails] = useState({
     doctor_email: '',
-    patient_email: 'pat1@email',  //later it will be fetched from the context api
+    patient_email: '',  //it will be fetched from the context api
     date_of_appointment: minDate,
     slot_booked: 0
   });
 
-  const handlechangeBookingDetails = (name, value) => {
+  const handlechangeBookingDetails = (name,value) => {
+    // console.log(obj)
+    console.log(name,value)
     setBookingDetails((details) => {
       return { ...details, [name]: value }
     })
+    // setBookingDetails((prevobj)=>{
+    //   return {...prevobj,...obj}
+    // })
+    console.log(bookingDetails);
   }
 
 
 
   const bookDoctor = async () => {
-    console.log("Booking details before the api call ", bookingDetails);
-    const res = await axios.post(`http://localhost:3000/patient/book-doctor`, bookingDetails);
+    // console.log("Booking details before the api call ", bookingDetails);
+    // const res = await axios.post(`http://localhost:3000/patient/book-doctor`, bookingDetails);
+    console.log(bookingDetails)
+    const btn=document.getElementById('openmodalpatientbooking')
+    btn.click()
     // navigate("/");   //write here required destination
 
   }
@@ -130,10 +157,13 @@ const Patientpages = () => {
   };
 
   return (
-    <>
-      {/* <Navbar /> */}
+    <div>
+      <NavBar />
+       <Modal bookingDetails={bookingDetails} setBookingDetails={setBookingDetails} refreshpage={handleSubmit}/>
+       <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" id='openmodalpatientbooking' style={{ display: 'none' }}>
 
-
+          Launch demo modal
+        </button>
       <DoctorSearchForm handleSubmit={handleSubmit} handleChange={handleChange} formData={formData} handlechangeBookingDetails={handlechangeBookingDetails} specialties={specialties} locations={locations} minDate={minDate} maxDate={maxDate}></DoctorSearchForm>
 
 
@@ -148,6 +178,9 @@ const Patientpages = () => {
             handlechangeBookingDetails={handlechangeBookingDetails}
             doctor={doctor}
             bookingDetails={bookingDetails}
+            date={formData.date}
+            loc={formData.location}
+
           />
         ))}
       </ul>
@@ -169,10 +202,10 @@ const Patientpages = () => {
 
           }}
         >
-          {bookingDetails.doctor_email !== "" ? "Book You Slot" : "Select You Slot"}
+          {bookingDetails.doctor_email !== "" ? "Book Your Slot" : "Select Your Slot"}
         </button>
       </div>
-    </>
+    </div>
   );
 };
 
