@@ -53,4 +53,14 @@
   object-fit: cover;
 }
 
+.square-container {
+  display: flex;
+  justify-content: space-between;
+  width: 300px; /* Adjust as needed */
+  height: 300px; /* Adjust as needed */
+}
 
+.image-container {
+  width: 48%; /* Each image container takes half the width of the square */
+  height: 48%; /* Each image container takes half the height of the square */
+}
