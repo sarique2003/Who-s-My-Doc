@@ -2,7 +2,7 @@ const express = require('express')
 const app = express()
 const mysql2 = require('mysql2');
 require('dotenv').config();
-
+const prdictionRouter=require('./Routes/Routes.prediction.js')
 
 const cors = require('cors')
 port = 3000
@@ -45,6 +45,8 @@ app.use('/login', loginRouter(conn))
 app.use('/register', registerRouter(conn))
 app.use('/patient', patientRoute(conn))
 app.use('/doctor', doctorRoute(conn))
+app.use('/prediction', prdictionRouter(conn))
+
 
 
 
