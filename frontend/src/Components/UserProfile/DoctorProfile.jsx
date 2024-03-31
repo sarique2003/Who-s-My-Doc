@@ -9,7 +9,7 @@ export default function DoctorProfile() {
     const doc=isAuthenticated[0] && isAuthenticated[1]
     const navigate=useNavigate()
     useEffect(()=>{
-        if(doc.type!=='doctor')
+        if(doc==undefined || doc.type!=='doctor')
         navigate('/')
         // console.log(doc)
     },[])

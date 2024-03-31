@@ -1,6 +1,6 @@
 const express = require('express')
 const Router = express.Router()
-
+const {hashPassword}=require('../helper/authHelper')
 module.exports = (conn) => {
     // console.log('reached here')
 
@@ -109,6 +109,28 @@ module.exports = (conn) => {
             console.log(error)
         }
 
+    })
+
+    Router.post('/update',async(req,res)=>{
+        let {type,updatetype,newvalue,samefield,samevalue}=req.body
+        if(updatetype==='password')
+        newvalue=await hashPassword(newvalue)
+        let sql=`UPDATE ${type} SET ${updatetype} AS '${newvalue}' WHERE ${samefield}='${samevalue}' `
+        // conn.query(sql,(error,result)=>{
+        //     if(error) res.send(error)
+        //     else res.send(result)
+        // })
+        try{
+            const [rows,field]=conn.promise().query(sql)
+            sql=`SELECT * FROM ${type} WHERE ${samefield}='${samevalue}'`
+            const [rowsnew,fd]=conn.promise().query(sql)
+            console.log(rowsnew)
+
+        }
+        catch(error){
+            console.log(error)
+            res.send(error)
+        }
     })
     return Router
 }
