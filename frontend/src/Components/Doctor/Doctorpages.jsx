@@ -4,7 +4,8 @@ import "./Doctorpages.css";
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthProvider';
 import Modal from './Modal';
-import Navbar from '../Navbar/NavBar';
+import NavBar from '../Navbar/NavBar';
+// import Navbar from '../Navbar/NavBar';
 
 const Doctorpages = () => {
 
@@ -35,7 +36,7 @@ const Doctorpages = () => {
     for (let i = 0; i < bookings[0].length; i++) {
       timingSlots.push(
         <td key={i} style={{ width: '20%' }}>
-          {start_time + i}:00 - {start_time + i + 1}:00
+          {start_time + i}:00 - {start_time + i + 1}:00 Hr.
         </td>
       );
     }
@@ -117,11 +118,11 @@ const Doctorpages = () => {
 
   return (
     <>
-      <Navbar />
+      <NavBar />
       <div className="mt-5" style={{ display: 'flex', justifyContent: 'center' }}>
-        <div className="schedule-container" style={{ width: 'fit-content', padding: '20px', backgroundColor: '#3498db', borderRadius: '10px', marginLeft: '20px', textAlign: 'center' }}>
-          <h2 style={{ color: 'white', marginBottom: '20px' }}>Doctor's Schedule</h2>
-          <div className="schedule-container">
+        <div className="schedule-container" style={{ width: 'fit-content', padding: '0px', backgroundColor: '#3498db', borderRadius: '10px', marginLeft: '20px', textAlign: 'center' }}>
+          <h2 style={{ color: 'black', marginBottom: '20px' }}>Doctor's Schedule</h2>
+          <div className="schedule-container2" style={{ marginLeft: "15px", marginRight: "15px" }}>
             {renderSchedule()}
           </div>
         </div>
@@ -130,7 +131,7 @@ const Doctorpages = () => {
           Launch demo modal
         </button>
         <Modal patientdetails={patientdetails} />
-      </div>
+      </div >
     </>
 
   );

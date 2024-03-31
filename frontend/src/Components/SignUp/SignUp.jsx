@@ -107,9 +107,9 @@ export default function SignUp() {
     <div>
       <NavBar />
       <div className="container-main  d-flex ailgn-content-center ">
-        <div className="main-box rounded m-auto row">
+        <div className="main-box  m-auto row">
           <div className="col-6 p-0 ">
-            <img src={img} alt="" className="" />
+            <img src={img} alt="" className="signup-img" />
           </div>
           {type === "doctor" && (
             <div className="col-6 form-inp overflow-auto">
@@ -122,7 +122,7 @@ export default function SignUp() {
                     name="dropdown"
                     value={type}
                     onChange={handletype}
-                    className="mx-2 p-2 rounded"
+                    className="mx-2 p-1 rounded"
                   >
                     <option value="doctor">Doctor</option>
                     <option value="patient">Patient</option>
@@ -133,7 +133,7 @@ export default function SignUp() {
                   <p className="d-block">Enter your Email</p>
                   <input
                     type="email"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your email"
                     name="email"
@@ -146,7 +146,7 @@ export default function SignUp() {
                   <p className="d-block">Enter your Username</p>
                   <input
                     type="text"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your username"
                     name="username"
@@ -160,7 +160,7 @@ export default function SignUp() {
 
                   <input
                     type="text"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your name"
                     name="name"
@@ -176,7 +176,7 @@ export default function SignUp() {
                   <input
                     type="password"
                     visible
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your password"
                     name="password"
@@ -190,7 +190,7 @@ export default function SignUp() {
 
                   <input
                     type="number"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your fees"
                     min={0}
@@ -205,7 +205,7 @@ export default function SignUp() {
 
                   <input
                     type="text"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your Registration number"
                     name="regno"
@@ -219,7 +219,7 @@ export default function SignUp() {
 
                   <input
                     type="text"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your qualification"
                     name="qualification"
@@ -234,7 +234,7 @@ export default function SignUp() {
 
                   <input
                     type="text"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your specialisation"
                     name="specialisation"
@@ -249,7 +249,7 @@ export default function SignUp() {
 
                   <input
                     type="number"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your experience"
                     min={0}
@@ -267,7 +267,7 @@ export default function SignUp() {
 
                   <input
                     type="number"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder=""
                     min={6}
@@ -286,7 +286,7 @@ export default function SignUp() {
 
                   <input
                     type="number"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder=""
                     min={7}
@@ -305,7 +305,7 @@ export default function SignUp() {
 
                   <input
                     type="text"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder=""
                     name="location"
@@ -348,7 +348,7 @@ export default function SignUp() {
                   <p className="d-block">Enter your Email</p>
                   <input
                     type="email"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your email"
                     name="email"
@@ -361,7 +361,7 @@ export default function SignUp() {
                   <p className="d-block">Enter your Username</p>
                   <input
                     type="text"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your username"
                     name="username"
@@ -375,7 +375,7 @@ export default function SignUp() {
 
                   <input
                     type="text"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your name"
                     name="name"
@@ -391,7 +391,7 @@ export default function SignUp() {
                   <input
                     type="password"
                     visible
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your password"
                     name="password"
@@ -405,7 +405,7 @@ export default function SignUp() {
 
                   <input
                     type="number"
-                    className="p-2 b-0 rounded"
+                    className="p-1 b-0 rounded"
                     required
                     placeholder="Enter your age"
                     min={0}
