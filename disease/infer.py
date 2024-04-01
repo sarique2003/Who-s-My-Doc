@@ -1,7 +1,14 @@
 import pandas as pd
 import numpy as np
+import joblib
 from joblib import load
 import warnings
+# from tensorflow.keras.models import load_model
+# model = load_model('model.h5')
+
+
+
+print(joblib.__version__)
 
 # Suppress UserWarnings
 warnings.filterwarnings("ignore", category=UserWarning)
@@ -84,7 +91,7 @@ df_test = pd.DataFrame(columns=list(symptoms.keys()))
 df_test.loc[0] = np.array(list(symptoms.values()))
 
     # Load pre-trained model
-clf = load(str("./saved_model/random_forest.joblib"))
+clf = joblib.load("saved_model/random_forest.joblib")
 result = clf.predict(df_test)
 if len(result) == 1:
     result = result[0]
