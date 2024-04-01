@@ -1,6 +1,6 @@
 .container-main-home {
   width: 100vw;
-  /* background-color: aqua; */
+  background-color: rgb(179, 234, 234); 
   height: 100vh;
   /* background: rgba(229, 219, 166, 0.829); */
   filter: progid: DXImageTransform.Microsoft.gradient(startColorstr="#1EC40F", endColorstr="#EDFCF6", GradientType=1);
@@ -23,7 +23,7 @@
 .main-text {
   font-weight: bold;
   animation: bounce 0.5s infinite alternate;
-  margin-top: 150px;
+  margin-top: 250px;
   /* Example animation */
   margin-left: 120px;
   font-size: 60px;
@@ -64,7 +64,7 @@
 
 .image-container {
   flex: 1;
-  width: 45%;
+  width: 55%;
   margin: auto;
   /* width: 150px;  */
   /* Adjust the width of the images as needed */
@@ -79,9 +79,12 @@
   text-align: center;
 }
 
+.image-2{
+  width:800px;
+}
 .image-container img {
   height: 400px;
-  width: auto;
+  width: 300px;
   margin: auto;
   border-radius: 10px;
   object-fit: cover;
@@ -95,8 +98,8 @@
 }
 
 .image-container {
-  width: 48%; /* Each image container takes half the width of the square */
-  height: 48%; /* Each image container takes half the height of the square */
+  width:68%; /* Each image container takes half the width of the square */
+  height: 140%; /* Each image container takes half the height of the square */
 }
 #btn-doc-find {
   font-size: 20px;
