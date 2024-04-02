@@ -95,7 +95,11 @@ export default function PredictDoc() {
               </div>
             </div>
 
-            <button type="submit" className="btn btn-success">
+            <button
+              type="submit"
+              className="btn btn-success"
+              style={{ marginTop: "0.7rem" }}
+            >
               Submit
             </button>
           </form>
