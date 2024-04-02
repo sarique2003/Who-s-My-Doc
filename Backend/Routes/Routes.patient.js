@@ -51,10 +51,10 @@ module.exports = (conn) => {
     Router.get('/get-locations', (req, res) => {
         // res.send('hi')
         let sql = `SELECT DISTINCT(location) from doctor;`
-        // conn.query(sql, (error, result) => {
-        //     if (error) res.send(error)
-        //     res.send(result.map(it => it['location']))
-        // })
+        conn.query(sql, (error, result) => {
+            if (error) res.send(error)
+            res.send(result.map(it => it['location']))
+        })
     })
     //getting the specialities available
     Router.get('/get-specialities', (req, res) => {

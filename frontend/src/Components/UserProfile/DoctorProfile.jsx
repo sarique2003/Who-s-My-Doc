@@ -19,7 +19,7 @@ export default function DoctorProfile() {
             <section class="vh-100 main-section" style={{ "background-color": "#f4f5f7;" }}>
                 <div class="container py-5 h-100">
                     <div class="row d-flex justify-content-center align-items-center h-100">
-                        <div class="col me-auto ms-auto mb-4 mb-lg-0">
+                        <div class="col d-flex justify-content-center mb-4 mb-lg-0">
                             <div class="card mb-3" style={{ "border-radius": ".5rem;" }}>
                                 <div class="row g-0">
                                     <div class="col-md-4 gradient-custom text-center text-white"
