@@ -100,7 +100,7 @@ def handle_client(client_socket, client_address,):
            print(f"Please visit an: {specialized_doctors[result]}")
         #    print()
            
-           client_socket.send(f"Please visit an: {specialized_doctors[result]}".encode())
+           client_socket.send(f"Please visit a: {specialized_doctors[result]}".encode())
             # Close the connection
     except ConnectionAbortedError:
         print(f"Client {client_address} connection aborted.")
