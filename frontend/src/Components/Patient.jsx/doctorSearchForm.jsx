@@ -1,6 +1,8 @@
 import React from 'react'
+import { Link } from 'react-router-dom';
 
 function DoctorSearchForm({ handleSubmit, handleChange, formData, handlechangeBookingDetails, specialties, locations, minDate, maxDate }) {
+    
     return (
         <div style={{ minWidth: "300px", width: "70%", margin: "auto", border: "1px solid rgba(59, 59, 59, 0.659)", padding: "20px", borderRadius: "15px", marginTop: "20px", boxShadow: "0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19)" }}>
             <h2 style={{ color: "black", marginBottom: "20px", textAlign: "center" }}>
@@ -20,6 +22,10 @@ function DoctorSearchForm({ handleSubmit, handleChange, formData, handlechangeBo
                         </option>
                     ))}
                 </select>
+                <div className='my-2 text-center'>
+                    Don't know which type of doctor to consult?
+                    <Link to='/predict-doctor' target='blank'>Click here</Link>
+                </div>
                 <select
                     name="location"
                     value={formData.location}

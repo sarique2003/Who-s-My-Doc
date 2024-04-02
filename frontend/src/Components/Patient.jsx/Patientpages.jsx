@@ -168,7 +168,7 @@ const Patientpages = () => {
 
 
 
-      <h2 style={{ color: "white", marginBottom: "20px" }}>
+      <h2 style={{ color: "black",textAlign:'center', marginBottom: "20px", marginTop:'.5rem' }}>
         Available Doctors
       </h2>
       <ul style={{ margin: "0px", padding: "0px" }}>
