@@ -6,6 +6,7 @@
     "express": "^4.18.3",
     "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.2",
-    "net": "^1.0.2"
+    "net": "^1.0.2",
+    "nodemailer": "^6.9.13"
   }
 }

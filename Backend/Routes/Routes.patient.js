@@ -1,6 +1,7 @@
 const express = require('express')
 const Router = express.Router()
-const {hashPassword}=require('../helper/authHelper')
+const { hashPassword } = require('../helper/authHelper')
+const { sendMail } = require('../helper/mailer')
 module.exports = (conn) => {
     // console.log('reached here')
 
@@ -50,10 +51,10 @@ module.exports = (conn) => {
     Router.get('/get-locations', (req, res) => {
         // res.send('hi')
         let sql = `SELECT DISTINCT(location) from doctor;`
-        conn.query(sql, (error, result) => {
-            if (error) res.send(error)
-            res.send(result.map(it => it['location']))
-        })
+        // conn.query(sql, (error, result) => {
+        //     if (error) res.send(error)
+        //     res.send(result.map(it => it['location']))
+        // })
     })
     //getting the specialities available
     Router.get('/get-specialities', (req, res) => {
@@ -68,6 +69,24 @@ module.exports = (conn) => {
 
     //booking for the doctor
     Router.post('/book-doctor', (req, res) => {
+
+        let { patient_email, doctor_email, date_of_appointment, slot_booked } = req.body;
+
+        let doc_name = ''
+        let doc_location = ''
+
+        // Location SLOT DATE DOCEMAIL DOCNAME
+        let sql_doc = `SELECT name, location, timeslot_start FROM Doctor where email='${doctor_email}';`
+        conn.query(sql_doc, (error, result) => {
+            if (error) res.status.send(error)
+            else {
+                doc_name = result[0]['name']
+                doc_location = result[0]['location']
+                slot_booked += result[0]['timeslot_start']
+                // console.log("Doc", doc_name, result);
+                sendMail(patient_email, doctor_email, date_of_appointment, slot_booked, doc_name, doc_location)
+            }
+        })
 
         let sql = `INSERT INTO booking_details VALUES (?,?,?,?);`
         conn.query(sql, Object.values(req.body), (error, result) => {
@@ -97,7 +116,7 @@ module.exports = (conn) => {
                         // console.log(rec);
                         let sql_ = `SELECT name, specialisation, qualification, timeslot_start, fees, location FROM Doctor WHERE email='${rec.doctor_email}'`;
                         conn.query(sql_, (error, values) => {
-                            final_records.push({ ...rec, 'doctor': values[0],'date_of_appointment':rec.date_of_appointment.toISOString().split('T')[0] })
+                            final_records.push({ ...rec, 'doctor': values[0], 'date_of_appointment': rec.date_of_appointment.toISOString().split('T')[0] })
                             if (index === records.length - 1)
                                 res.send(final_records)
                         })
@@ -111,23 +130,23 @@ module.exports = (conn) => {
 
     })
 
-    Router.post('/update',async(req,res)=>{
-        let {type,updatetype,newvalue,samefield,samevalue}=req.body
-        if(updatetype==='password')
-        newvalue=await hashPassword(newvalue)
-        let sql=`UPDATE ${type} SET ${updatetype} AS '${newvalue}' WHERE ${samefield}='${samevalue}' `
+    Router.post('/update', async (req, res) => {
+        let { type, updatetype, newvalue, samefield, samevalue } = req.body
+        if (updatetype === 'password')
+            newvalue = await hashPassword(newvalue)
+        let sql = `UPDATE ${type} SET ${updatetype} AS '${newvalue}' WHERE ${samefield}='${samevalue}' `
         // conn.query(sql,(error,result)=>{
         //     if(error) res.send(error)
         //     else res.send(result)
         // })
-        try{
-            const [rows,field]=conn.promise().query(sql)
-            sql=`SELECT * FROM ${type} WHERE ${samefield}='${samevalue}'`
-            const [rowsnew,fd]=conn.promise().query(sql)
+        try {
+            const [rows, field] = conn.promise().query(sql)
+            sql = `SELECT * FROM ${type} WHERE ${samefield}='${samevalue}'`
+            const [rowsnew, fd] = conn.promise().query(sql)
             console.log(rowsnew)
 
         }
-        catch(error){
+        catch (error) {
             console.log(error)
             res.send(error)
         }
