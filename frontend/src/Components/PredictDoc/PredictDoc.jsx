@@ -105,7 +105,7 @@ export default function PredictDoc() {
           </form>
 
           {predicedtype !== false && (
-            <div className="my-2 bg-primary text-light rounded p-3">
+            <div className="my-2 bg-primary text-light text-center rounded p-3">
               {predicedtype}
             </div>
           )}
