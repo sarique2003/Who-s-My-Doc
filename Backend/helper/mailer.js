@@ -4,13 +4,13 @@ function sendMail(patient_email, doctor_email, date_of_appointment, slot_booked,
     var transporter = nodemailer.createTransport({
         service: 'gmail',
         auth: {
-            user: 'bookdockl2@gmail.com',
-            pass: 'mtytxwzeubwovvgt'
+            user: process.env.EMAIL_ID,
+            pass: process.env.EMAIL_PASSKEY
         }
     });
 
     var mailOptions = {
-        from: 'bookdockl2@gmail.com',
+        from: process.env.EMAIL_ID,
         to: patient_email,
         subject: 'BookDoc :: Doctor Appointment Confirmed ',
 
