@@ -1,18 +1,54 @@
-import React, { useContext, useEffect } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import './DoctorProfile.css'
 import img from '../../assets/img-back.jpg'
 import { AuthContext } from '../../context/AuthProvider'
 import { useNavigate } from 'react-router-dom'
 import NavBar from '../Navbar/NavBar'
+import { Modal } from 'antd';
+import ProfileUpdateForm from './ProfileUpdateForm'
+import axios from 'axios'
 export default function DoctorProfile() {
-    const {isAuthenticated}=useContext(AuthContext)
-    const doc=isAuthenticated[0] && isAuthenticated[1]
-    const navigate=useNavigate()
-    useEffect(()=>{
-        if(doc==undefined || doc.type!=='doctor')
-        navigate('/')
-        // console.log(doc)
+    const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext)
+    const doc = isAuthenticated[0] && isAuthenticated[1]
+    const [docDetails, setDocDetails] = useState([])
+    const navigate = useNavigate()
+    useEffect(() => {
+
+        if (doc == undefined || doc.type !== 'doctor')
+            navigate('/')
+        else
+            setDocDetails(doc)
     }, [])
+
+    //Modal--------------------------------------------
+    const [UpdateEnable, setUpdateEnable] = useState(false);
+
+
+    const handleCancel = () => {
+        setUpdateEnable(false);
+    };
+
+    const updateHandler = async () => {
+        // console.log(docDetails);
+        const data = {
+            "username": docDetails.username,
+            "email": docDetails.email,
+            "qualification": docDetails.qualification,
+            "specialisation": docDetails.specialisation,
+            "fees": docDetails.fees,
+            "location": docDetails.location
+        }
+
+        const res = await axios.post("http://localhost:3000/doctor/update-profile", data);
+        if (res.data.status) {
+            setIsAuthenticated([true, docDetails])
+        }
+        else {
+            console.log(res.data)
+        }
+    }
+
+
     return (
         <>
             <NavBar />
@@ -37,7 +73,9 @@ export default function DoctorProfile() {
                                             <div class="row pt-1">
                                                 <div class="col-6 mb-3">
                                                     <h5>Email</h5>
-                                                    <p class="text-muted">{doc.email}</p>
+                                                    {
+                                                        <p class="text-muted">{doc.email}</p>
+                                                    }
                                                 </div>
                                                 <div class="col-6 mb-3">
                                                     <h5>Username</h5>
@@ -49,11 +87,17 @@ export default function DoctorProfile() {
                                             <div class="row pt-1">
                                                 <div class="col-6 mb-3">
                                                     <h5>Qualification</h5>
-                                                    <p class="text-muted">{doc.qualification}</p>
+                                                    {
+                                                        UpdateEnable ? <input name="qualification" type="text" class="text-muted" value={docDetails.qualification} onChange={(e) => { setDocDetails((docDet) => { return { ...docDet, [e.target.name]: e.target.value } }) }} /> :
+                                                            <p class="text-muted">{doc.qualification}</p>
+                                                    }
                                                 </div>
                                                 <div class="col-6 mb-3">
                                                     <h5>Specialisation</h5>
-                                                    <p class="text-muted">{doc.specialisation}</p>
+                                                    {
+                                                        UpdateEnable ? <input name="specialisation" type="text" class="text-muted" value={docDetails.specialisation} onChange={(e) => { setDocDetails((docDet) => { return { ...docDet, [e.target.name]: e.target.value } }) }} /> :
+                                                            <p class="text-muted">{doc.specialisation}</p>
+                                                    }
                                                 </div>
 
                                             </div>
@@ -61,23 +105,35 @@ export default function DoctorProfile() {
                                             <div class="row pt-1">
                                                 <div class="col-4 mb-3">
                                                     <h5>Fees</h5>
-                                                    <p class="text-muted">{doc.fees}</p>
+                                                    {
+                                                        UpdateEnable ? <input name="fees" type="number" class="text-muted" value={docDetails.fees} onChange={(e) => { setDocDetails((docDet) => { return { ...docDet, [e.target.name]: parseInt(e.target.value) } }) }} /> :
+                                                            <p class="text-muted">{doc.fees}</p>
+                                                    }
                                                 </div>
                                                 <div class="col-4 mb-3">
                                                     <h5>Location</h5>
-                                                    <p class="text-muted">{doc.location}</p>
+                                                    {
+                                                        UpdateEnable ? <input name="location" type="text" class="text-muted" value={docDetails.location} onChange={(e) => { setDocDetails((docDet) => { return { ...docDet, [e.target.name]: e.target.value } }) }} /> :
+                                                            <p class="text-muted">{doc.location}</p>
+                                                    }
                                                 </div>
                                                 <div class="col-4 mb-3">
                                                     <h5>Timing</h5>
                                                     <p class="text-muted">{doc.timeslot_start}:00 - {doc.timeslot_end}:00</p>
                                                 </div>
                                             </div>
-                                            {/* <div class="d-flex justify-content-start">
-                                            <a href="#!"><i class="fab fa-facebook-f fa-lg me-3"></i></a>
-                                            <a href="#!"><i class="fab fa-twitter fa-lg me-3"></i></a>
-                                            <a href="#!"><i class="fab fa-instagram fa-lg"></i></a>
-                                        </div> */}
+
                                         </div>
+                                        {
+                                            UpdateEnable === false ?
+                                                <button className='btn btn-primary m-3 mb-0 mt-0' onClick={() => { setUpdateEnable(true); setDocDetails(doc) }}>Edit Details</button> :
+                                                <>
+                                                    <button className='btn btn-danger m-3 mb-0 mt-0' onClick={() => { setUpdateEnable(false); }}>Cancel</button>
+                                                    <button className='btn btn-primary m-3 mb-0 mt-0' onClick={() => { updateHandler(); setUpdateEnable(false); }}>Save Changes</button>
+                                                </>
+
+                                        }
+
                                     </div>
                                 </div>
                             </div>

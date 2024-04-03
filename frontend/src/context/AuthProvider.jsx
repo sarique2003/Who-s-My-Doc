@@ -23,8 +23,8 @@ const AuthProvider = ({ children }) => {
       };
       await axios.post(`http://localhost:3000/login`, {}, { headers }).then((result) => {
         console.log(result.data)
-        const {status,user}=result.data
-        setIsAuthenticated([true,user])
+        const { status, user } = result.data
+        setIsAuthenticated([true, user])
       }).catch((error) => {
         console.log(error)
       })
@@ -35,7 +35,7 @@ const AuthProvider = ({ children }) => {
     fetchdatalogin()
   }, [])
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout }}>
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, login, logout }}>
       {children}
     </AuthContext.Provider>
   );

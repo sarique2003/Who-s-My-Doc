@@ -93,6 +93,21 @@ module.exports = (conn) => {
         })
     })
 
+    Router.post('/update-profile', (req, res) => {
+        const { username, email, qualification, specialisation, fees, location } = req.body;
+
+        let sql = `UPDATE doctor 
+               SET username = ?, qualification = ?, specialisation = ?, fees = ?, location = ?
+               WHERE email = ?;`;
+        const values = [username, qualification, specialisation, fees, location, email];
+        conn.query(sql, values, (err, result) => {
+            if (err) res.status(400).send({ status: false })
+            else {
+                res.send({ status: true })
+            }
+        });
+    })
+
 
     return Router
 }
