@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./SignUp.css";
-import img from "../../assets/img-back.jpg";
+// import img from "../../assets/img-back.jpg";
+import img from '../../assets/doctor_login.png'
 import axios from "axios";
 import { toast } from "react-hot-toast";
 import NavBar from "../Navbar/NavBar";
@@ -307,7 +308,7 @@ export default function SignUp() {
                     type="text"
                     className="p-1 b-0 rounded"
                     required
-                    placeholder=""
+                    placeholder="Enter your location"
                     name="location"
                     onChange={handlechangeDoctor}
                     value={doctor.location}

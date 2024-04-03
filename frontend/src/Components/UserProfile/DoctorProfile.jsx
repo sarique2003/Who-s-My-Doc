@@ -5,7 +5,6 @@ import { AuthContext } from '../../context/AuthProvider'
 import { useNavigate } from 'react-router-dom'
 import NavBar from '../Navbar/NavBar'
 import { Modal } from 'antd';
-import ProfileUpdateForm from './ProfileUpdateForm'
 import axios from 'axios'
 export default function DoctorProfile() {
     const { isAuthenticated, setIsAuthenticated } = useContext(AuthContext)

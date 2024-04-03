@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from 'react'
 import './Login.css'
 import img from '../../assets/img-back.jpg'
+import img2 from '../../assets/doctor_login.png'
 import { Link, useNavigate } from 'react-router-dom'
 import axios from 'axios';
 import { AuthContext } from '../../context/AuthProvider';
@@ -77,7 +78,7 @@ export default function Login() {
             <div className="container-main rounded d-flex ailgn-content-center ">
                 <div className="main-box rounded m-auto row">
                     <div className="col-6 form-inp overflow-auto">
-                        <h1 className="text-center mt-3">Login</h1>
+                        <h1 className="text-center mt-5">Login</h1>
                         <form className='my-5 ps-2' onSubmit={handleSubmit}>
                             <div className="d-flex  input-div type-sel align-items-center justify-content-center fs-5">
                                 Select the type of User
@@ -111,7 +112,7 @@ export default function Login() {
 
                     </div>
                     <div className="col-6 p-0 ">
-                        <img src={img} alt="" className='rounded-end' />
+                        <img src={img2} alt="" className='rounded-end' />
                     </div>
                 </div>
             </div>
