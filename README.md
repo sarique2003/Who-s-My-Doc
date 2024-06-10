@@ -63,4 +63,10 @@ The frontend is mainly organized into:
 ## To run the app
 1. Run server.py using 'python server.py' for windows and 'python3 server.py' for Linux. This file exists in the disease folder
 2. Run 'nodemon index.js' to start the backend. This command should be executed in the Backend folder
-3. Run 'npm run dev' in the frontend folder to start the frontend.  
+3. Run 'npm run dev' in the frontend folder to start the frontend.
+
+## Demo Video
+
+Watch the demo video below to see **Who's My Doc** in action:
+
+<iframe src="https://drive.google.com/file/d/1RMX7zEfu5b3TugkhIGmvOd2SmBRL1et-/view?usp=sharing" width="640" height="480" allow="autoplay"></iframe>
