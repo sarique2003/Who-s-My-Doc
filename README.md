@@ -1,7 +1,11 @@
 # Who's My Doc
 
 Welcome to **Who's My Doc** – an end-to-end application designed for both patients and doctors. This platform promotes local medical clinics and small doctor chambers in various areas, providing an alternative to large hospitals. 
-
+## Demo Video
+Watch the demo video below to see **Who's My Doc** in action:
+<a href="https://drive.google.com/file/d/1RMX7zEfu5b3TugkhIGmvOd2SmBRL1et-/view">
+    <img src="https://www.pngall.com/wp-content/uploads/5/Video-Player-PNG-Picture.png?text=Demo+Video" width="320" height="320" alt="Watch the demo video">
+</a>
 ## Overview
 
 ### For Patients:
@@ -63,10 +67,3 @@ The frontend is mainly organized into:
 1. Run server.py using 'python server.py' for windows and 'python3 server.py' for Linux. This file exists in the disease folder
 2. Run 'nodemon index.js' to start the backend. This command should be executed in the Backend folder
 3. Run 'npm run dev' in the frontend folder to start the frontend.  
-
-## Demo Video
-Watch the demo video below to see **Who's My Doc** in action:
-<a href="https://drive.google.com/file/d/1RMX7zEfu5b3TugkhIGmvOd2SmBRL1et-/view">
-    <img src="https://www.pngall.com/wp-content/uploads/5/Video-Player-PNG-Picture.png?text=Demo+Video" width="320" height="240" alt="Watch the demo video">
-</a>
-
