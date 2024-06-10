@@ -65,7 +65,8 @@ The frontend is mainly organized into:
 3. Run 'npm run dev' in the frontend folder to start the frontend.  
 
 ## Demo Video
-
 Watch the demo video below to see **Who's My Doc** in action:
-[![Watch the demo video](https://via.placeholder.com/640x480.png?text=Demo+Video)](https://drive.google.com/file/d/1RMX7zEfu5b3TugkhIGmvOd2SmBRL1et-/view)
+<a href="https://drive.google.com/file/d/1RMX7zEfu5b3TugkhIGmvOd2SmBRL1et-/view">
+    <img src="https://www.pngall.com/wp-content/uploads/5/Video-Player-PNG-Picture.png?text=Demo+Video" width="320" height="240" alt="Watch the demo video">
+</a>
 
