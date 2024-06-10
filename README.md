@@ -35,6 +35,7 @@ Welcome to **Who's My Doc** – an end-to-end application designed for both pati
    - **Past Appointments**: Doctors can also view a history of their past appointments, helping them track their consultation history and manage their practice more effectively.
 
 By integrating these features, **Who's My Doc** ensures a seamless and efficient experience for both patients and doctors. Patients can easily find and book appointments with local doctors, while doctors can manage their schedules and patient information with ease.
+
 ## Technologies Used
 
 ### Backend:
@@ -58,15 +59,13 @@ The frontend is mainly organized into:
 - **Components**: Contains various component folders, each with related subcomponents.
 - **Context**: Contains the React Context which manages authentication state, including login and logout functions.
 
-
-
 ## To run the app
 1. Run server.py using 'python server.py' for windows and 'python3 server.py' for Linux. This file exists in the disease folder
 2. Run 'nodemon index.js' to start the backend. This command should be executed in the Backend folder
-3. Run 'npm run dev' in the frontend folder to start the frontend.
+3. Run 'npm run dev' in the frontend folder to start the frontend.  
 
 ## Demo Video
 
 Watch the demo video below to see **Who's My Doc** in action:
-
 <iframe src="https://drive.google.com/file/d/1RMX7zEfu5b3TugkhIGmvOd2SmBRL1et-/preview" width="640" height="480" allow="autoplay"></iframe>
+
