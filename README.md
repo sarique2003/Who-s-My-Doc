@@ -2,10 +2,12 @@
 
 Welcome to **Who's My Doc** – an end-to-end application designed for both patients and doctors. This platform promotes local medical clinics and small doctor chambers in various areas, providing an alternative to large hospitals. 
 ## Demo Video
-Watch the demo video below to see **Who's My Doc** in action:
-<a href="https://drive.google.com/file/d/1RMX7zEfu5b3TugkhIGmvOd2SmBRL1et-/view">
-    <img src="https://www.pngall.com/wp-content/uploads/5/Video-Player-PNG-Picture.png?text=Demo+Video" width="320" height="320" alt="Watch the demo video">
-</a>
+Watch the demo video below to see **Who's My Doc** in action
+<div style="text-align: center;">
+  <a href="https://drive.google.com/file/d/1RMX7zEfu5b3TugkhIGmvOd2SmBRL1et-/view">
+      <img src="https://www.pngall.com/wp-content/uploads/5/Video-Player-PNG-Picture.png?text=Demo+Video" width="320" height="240" alt="Watch the demo video">
+  </a>
+</div>
 ## Overview
 
 ### For Patients:
