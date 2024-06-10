@@ -69,4 +69,4 @@ The frontend is mainly organized into:
 
 Watch the demo video below to see **Who's My Doc** in action:
 
-<iframe src="https://drive.google.com/file/d/1RMX7zEfu5b3TugkhIGmvOd2SmBRL1et-/view?usp=sharing" width="640" height="480" allow="autoplay"></iframe>
+<iframe src="https://drive.google.com/file/d/1RMX7zEfu5b3TugkhIGmvOd2SmBRL1et-/preview" width="640" height="480" allow="autoplay"></iframe>
